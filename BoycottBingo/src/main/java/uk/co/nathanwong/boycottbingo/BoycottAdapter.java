@@ -3,7 +3,9 @@ package uk.co.nathanwong.boycottbingo;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -37,6 +39,7 @@ public class BoycottAdapter extends BaseAdapter {
         if (convertView == null) {
             // If it's not recycled, we'll initialise it
             text = new TextView(mContext);
+            text.setLayoutParams(new GridView.LayoutParams(GridView.LayoutParams.MATCH_PARENT, GridView.LayoutParams.MATCH_PARENT));
             text.setText(mStrings.get(position));
             text.setPadding(10, 10, 10, 10);
         } else {
