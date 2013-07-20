@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -124,19 +123,18 @@ public class MainActivity extends Activity {
 
                     if (count == 9) {
                         // Success!
-                        Toast.makeText(c, "Congratulations!", Toast.LENGTH_LONG).show();
                         AlertDialog.Builder builder = new AlertDialog.Builder(c);
-                        builder.setTitle("Bingo!");
-                        builder.setIcon(R.drawable.ic_fav);
-                        builder.setMessage("Congratulations! Do you want to play again?")
+                        builder.setTitle(getString(R.string.main_dialog_title));
+                        builder.setIcon(R.drawable.ic_good);
+                        builder.setMessage(getString(R.string.main_dialog_text))
                                 .setCancelable(false)
-                                .setPositiveButton("Yes!", new DialogInterface.OnClickListener() {
+                                .setPositiveButton(getString(R.string.main_dialog_positive), new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         MainActivity.this.onRefreshButtonPress(null);
                                     }
                                 })
-                                .setNegativeButton("No thanks", new DialogInterface.OnClickListener() {
+                                .setNegativeButton(getString(R.string.main_dialog_negative), new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         dialogInterface.cancel();
