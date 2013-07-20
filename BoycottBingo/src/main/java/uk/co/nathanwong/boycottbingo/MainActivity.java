@@ -59,6 +59,7 @@ public class MainActivity extends Activity {
     }
 
     private void createBingo() {
+        count = 0;
         Collections.shuffle(list);
 
         LinearLayout ll = new LinearLayout(this);
