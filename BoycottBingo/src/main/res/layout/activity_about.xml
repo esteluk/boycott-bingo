@@ -27,4 +27,14 @@
             android:layout_below="@+id/about_credit"
             android:layout_alignLeft="@+id/about_credit"
             android:layout_marginTop="10dp"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="This app: http://github.com/esteluk/boycott-bingo/"
+            android:id="@+id/textView2"
+            android:layout_below="@+id/textView"
+            android:layout_alignLeft="@+id/textView"
+            android:layout_marginTop="10dp"/>
 </RelativeLayout>
