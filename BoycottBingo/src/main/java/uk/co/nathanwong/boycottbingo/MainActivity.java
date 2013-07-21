@@ -33,6 +33,8 @@ public class MainActivity extends BaseGameActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        findViewById(R.id.main_signin).setOnClickListener(this);
+
         c = this;
 
         String[] strings = getResources().getStringArray(R.array.boycottisms);
@@ -161,16 +163,18 @@ public class MainActivity extends BaseGameActivity implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
-
+        if (view.getId() == R.id.main_signin) {
+            beginUserInitiatedSignIn();
+        }
     }
 
     @Override
     public void onSignInFailed() {
-
+        findViewById(R.id.main_signin).setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onSignInSucceeded() {
-
+        findViewById(R.id.main_signin).setVisibility(View.GONE);
     }
 }
