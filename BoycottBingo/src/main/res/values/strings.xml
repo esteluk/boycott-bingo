@@ -5,12 +5,14 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
 
-    <string name="app_id">46842162051</string>
+    <string name="app_id">209240859213</string>
+    <string name="leaderboard_id">CgkIzcTovYsGEAIQAg</string>
 
     <string name="main_dialog_title">Bingo!</string>
     <string name="main_dialog_text">Congratulations! Do you want to play again?</string>
     <string name="main_dialog_positive">Yes!</string>
     <string name="main_dialog_negative">No thanks</string>
+    <string name="main_leaderboard">View leaderboards</string>
 
     <string-array name="boycottisms">
         <item>Corridor of uncertainty</item>

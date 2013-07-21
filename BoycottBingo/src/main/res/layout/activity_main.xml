@@ -12,13 +12,30 @@
         android:id="@+id/main_rows"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/main_signin"
+        android:layout_above="@+id/main_bottom"
         android:orientation="vertical" />
 
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/main_signin"
+    <RelativeLayout
+        android:id="@+id/main_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true">
+
+        <com.google.android.gms.common.SignInButton
+                android:id="@+id/main_signin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+        <Button
+                android:id="@+id/main_leaderboard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/main_leaderboard"
+                android:visibility="gone" />
+
+    </RelativeLayout>
+
+
 
 </RelativeLayout>

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -26,6 +27,10 @@ public class MainActivity extends BaseGameActivity implements View.OnClickListen
     public int count = 0;
     Context c;
 
+    SharedPreferences settings = null;
+    SharedPreferences.Editor editor = null;
+    int score = 0;
+
     private static final int BINGO_SIZE = 9;
 
     @Override
@@ -33,7 +38,22 @@ public class MainActivity extends BaseGameActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        enableDebugLog(true, "PLAYSERVICES");
+
+        settings = getSharedPreferences("score", Context.MODE_PRIVATE);
+        editor = settings.edit();
+        score = settings.getInt("score", 0);
+
+        if (mHelper.isSignedIn()) {
+            findViewById(R.id.main_signin).setVisibility(View.GONE);
+            findViewById(R.id.main_leaderboard).setVisibility(View.VISIBLE);
+        } else {
+            findViewById(R.id.main_signin).setVisibility(View.VISIBLE);
+            findViewById(R.id.main_leaderboard).setVisibility(View.GONE);
+        }
+
         findViewById(R.id.main_signin).setOnClickListener(this);
+        findViewById(R.id.main_leaderboard).setOnClickListener(this);
 
         c = this;
 
@@ -146,6 +166,15 @@ public class MainActivity extends BaseGameActivity implements View.OnClickListen
 
                         AlertDialog dialog = builder.create();
                         dialog.show();
+
+                        if (mHelper.isSignedIn()) {
+                            // Submit leaderboard score
+                            score++;
+                            mHelper.getGamesClient().submitScore(getString(R.string.leaderboard_id), score);
+                            editor.putInt("score", score);
+
+                            editor.commit();
+                        }
                     }
 
                 }
@@ -165,16 +194,20 @@ public class MainActivity extends BaseGameActivity implements View.OnClickListen
     public void onClick(View view) {
         if (view.getId() == R.id.main_signin) {
             beginUserInitiatedSignIn();
+        } else if (view.getId() == R.id.main_leaderboard) {
+            startActivityForResult(mHelper.getGamesClient().getLeaderboardIntent(getString(R.string.leaderboard_id)), 12345);
         }
     }
 
     @Override
     public void onSignInFailed() {
         findViewById(R.id.main_signin).setVisibility(View.VISIBLE);
+        findViewById(R.id.main_leaderboard).setVisibility(View.GONE);
     }
 
     @Override
     public void onSignInSucceeded() {
         findViewById(R.id.main_signin).setVisibility(View.GONE);
+        findViewById(R.id.main_leaderboard).setVisibility(View.VISIBLE);
     }
 }
