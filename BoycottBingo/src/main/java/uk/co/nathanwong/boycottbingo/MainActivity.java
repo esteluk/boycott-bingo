@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
-import android.app.Activity;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,11 +13,13 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.example.games.basegameutils.BaseGameActivity;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class MainActivity extends Activity {
+public class MainActivity extends BaseGameActivity implements View.OnClickListener {
 
     List<String> list;
     LinearLayout rows;
@@ -157,5 +158,19 @@ public class MainActivity extends Activity {
 
         rows.addView(ll);
     }
-    
+
+    @Override
+    public void onClick(View view) {
+
+    }
+
+    @Override
+    public void onSignInFailed() {
+
+    }
+
+    @Override
+    public void onSignInSucceeded() {
+
+    }
 }
