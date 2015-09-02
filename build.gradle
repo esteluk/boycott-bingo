@@ -15,7 +15,7 @@ allprojects {
     ext {
         android_compile_version = 23
         android_version = '23'
-        android_min_sdk_version = 14
+        android_min_sdk_version = 16
 
         appcompat_library_version = '23.0.+'
         support_library_version = '23.0.+'

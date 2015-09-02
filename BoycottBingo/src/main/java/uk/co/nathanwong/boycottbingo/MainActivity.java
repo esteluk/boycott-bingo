@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,6 +26,7 @@ public class MainActivity extends BaseGameActivity implements View.OnClickListen
 
     List<String> list;
     LinearLayout rows;
+    Toolbar toolbar;
     public int count = 0;
     Context c;
 
@@ -63,6 +65,9 @@ public class MainActivity extends BaseGameActivity implements View.OnClickListen
         Collections.shuffle(list);
 
         rows = (LinearLayout) findViewById(R.id.main_rows);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         this.createBingo();
     }
 
@@ -124,7 +129,7 @@ public class MainActivity extends BaseGameActivity implements View.OnClickListen
 
             TextView text = new TextView(this);
             text.setText(list.get(i));
-            text.setBackgroundDrawable(getResources().getDrawable(R.drawable.selecttransition));
+            text.setBackground(getResources().getDrawable(R.drawable.selecttransition));
             text.setPadding(10, 10, 10, 10);
             text.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f));
             text.setGravity(Gravity.CENTER);
