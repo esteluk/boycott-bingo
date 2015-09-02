@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
@@ -15,14 +16,17 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
-import com.google.example.games.basegameutils.BaseGameActivity;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class MainActivity extends BaseGameActivity implements View.OnClickListener {
+import uk.co.nathanwong.boycottbingo.utils.GameUtils;
+
+public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
 
     List<String> list;
     LinearLayout rows;
@@ -34,6 +38,13 @@ public class MainActivity extends BaseGameActivity implements View.OnClickListen
     SharedPreferences.Editor editor = null;
     int score = 0;
 
+    private GoogleApiClient mGoogleApiClient;
+    private boolean mResolvingConnectionFailure = false;
+    private boolean mAutoStartSignInflow = true;
+    private boolean mSignInClicked = false;
+
+    private static int RC_SIGN_IN = 9001;
+
     private static final int BINGO_SIZE = 9;
 
     @Override
@@ -41,13 +52,17 @@ public class MainActivity extends BaseGameActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        enableDebugLog(true, "PLAYSERVICES");
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(Games.API).addScope(Games.SCOPE_GAMES)
+                .build();
 
         settings = getSharedPreferences("score", Context.MODE_PRIVATE);
         editor = settings.edit();
         score = settings.getInt("score", 0);
 
-        if (mHelper.isSignedIn()) {
+        if (isSignedIn()) {
             findViewById(R.id.main_signin).setVisibility(View.GONE);
             findViewById(R.id.main_leaderboard).setVisibility(View.VISIBLE);
         } else {
@@ -71,6 +86,17 @@ public class MainActivity extends BaseGameActivity implements View.OnClickListen
         this.createBingo();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mGoogleApiClient.disconnect();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -92,6 +118,20 @@ public class MainActivity extends BaseGameActivity implements View.OnClickListen
                 return true;
             default:
                 return false;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == RC_SIGN_IN) {
+            mSignInClicked = false;
+            mResolvingConnectionFailure = false;
+            if (resultCode == RESULT_OK) {
+                mGoogleApiClient.connect();
+            } else {
+                // Bring up error dialog
+                GameUtils.showActivityResultError(this, requestCode, resultCode, R.string.unable_to_sign_in);
+            }
         }
     }
 
@@ -173,10 +213,10 @@ public class MainActivity extends BaseGameActivity implements View.OnClickListen
                         AlertDialog dialog = builder.create();
                         dialog.show();
 
-                        if (mHelper.isSignedIn()) {
+                        if (isSignedIn()) {
                             // Submit leaderboard score
                             score++;
-                            Games.Leaderboards.submitScore(getApiClient(), getString(R.string.leaderboard_id), score);
+                            Games.Leaderboards.submitScore(mGoogleApiClient, getString(R.string.leaderboard_id), score);
                             editor.putInt("score", score);
 
                             editor.commit();
@@ -199,21 +239,49 @@ public class MainActivity extends BaseGameActivity implements View.OnClickListen
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.main_signin) {
-            beginUserInitiatedSignIn();
+            mSignInClicked = true;
+            mGoogleApiClient.connect();
         } else if (view.getId() == R.id.main_leaderboard) {
-            startActivityForResult(Games.Leaderboards.getLeaderboardIntent(getApiClient(), getString(R.string.leaderboard_id)), 12345);
+            startActivityForResult(Games.Leaderboards.getLeaderboardIntent(mGoogleApiClient, getString(R.string.leaderboard_id)), 12345);
         }
     }
 
     @Override
-    public void onSignInFailed() {
+    public void onConnected(Bundle bundle) {
+        // The player is signed in
+        findViewById(R.id.main_signin).setVisibility(View.GONE);
+        findViewById(R.id.main_leaderboard).setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        if (mResolvingConnectionFailure) {
+            // already resolving
+            return;
+        }
+
+        // if we clicked sign-in or if auto was enabled, then launch the sign-in flow
+        if (mSignInClicked || mAutoStartSignInflow) {
+            mAutoStartSignInflow = false;
+            mSignInClicked = false;
+            mResolvingConnectionFailure = true;
+
+            // Attempt to resolve the failure in Game utils
+            if (!GameUtils.resolveConnectionFailure(this, mGoogleApiClient, connectionResult, RC_SIGN_IN, "There was an issue with sign-in, please try again later.")) {
+                mResolvingConnectionFailure = false;
+            }
+        }
+
         findViewById(R.id.main_signin).setVisibility(View.VISIBLE);
         findViewById(R.id.main_leaderboard).setVisibility(View.GONE);
     }
 
-    @Override
-    public void onSignInSucceeded() {
-        findViewById(R.id.main_signin).setVisibility(View.GONE);
-        findViewById(R.id.main_leaderboard).setVisibility(View.VISIBLE);
+    boolean isSignedIn() {
+        return mGoogleApiClient != null && mGoogleApiClient.isConnected();
     }
 }

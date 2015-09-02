@@ -14,7 +14,9 @@ buildscript {
 dependencies {
     compile "com.android.support:appcompat-v7:${appcompat_library_version}"
     compile "com.android.support:support-v4:${support_library_version}"
-    compile "com.google.android.gms:play-services:${gms_library_version}"
+    compile "com.google.android.gms:play-services-games:${gms_library_version}"
+    compile "com.google.android.gms:play-services-plus:${gms_library_version}"
+    compile "com.google.android.gms:play-services-appstate:${gms_library_version}"
 }
 
 android {

@@ -14,6 +14,8 @@
     <string name="main_dialog_negative">No thanks</string>
     <string name="main_leaderboard">View leaderboards</string>
 
+    <string name="unable_to_sign_in">Unable to sign in.</string>
+
     <string-array name="boycottisms">
         <item>Corridor of uncertainty</item>
         <item>Could have hit that with a stick of rhubarb</item>
