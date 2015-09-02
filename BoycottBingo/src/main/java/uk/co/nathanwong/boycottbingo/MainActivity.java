@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.games.Games;
 import com.google.example.games.basegameutils.BaseGameActivity;
 
 import java.util.Arrays;
@@ -170,7 +171,7 @@ public class MainActivity extends BaseGameActivity implements View.OnClickListen
                         if (mHelper.isSignedIn()) {
                             // Submit leaderboard score
                             score++;
-                            mHelper.getGamesClient().submitScore(getString(R.string.leaderboard_id), score);
+                            Games.Leaderboards.submitScore(getApiClient(), getString(R.string.leaderboard_id), score);
                             editor.putInt("score", score);
 
                             editor.commit();
@@ -195,7 +196,7 @@ public class MainActivity extends BaseGameActivity implements View.OnClickListen
         if (view.getId() == R.id.main_signin) {
             beginUserInitiatedSignIn();
         } else if (view.getId() == R.id.main_leaderboard) {
-            startActivityForResult(mHelper.getGamesClient().getLeaderboardIntent(getString(R.string.leaderboard_id)), 12345);
+            startActivityForResult(Games.Leaderboards.getLeaderboardIntent(getApiClient(), getString(R.string.leaderboard_id)), 12345);
         }
     }
 

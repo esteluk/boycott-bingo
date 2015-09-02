@@ -2,25 +2,46 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\Nathan\Documents\Development\Android\boycott-bingo\BoycottBingo\build\intermediates\exploded-aar\com.google.android.gms\play-services\3.1.36\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.0"
-        sha1="7421dcb3ed9db47a59ec618e2398f0df65c2d480">
-        <dex dex="C:\Users\Nathan\Documents\Development\Android\boycott-bingo\BoycottBingo\build\intermediates\pre-dexed\debug\classes-d3f5bd9232dc682e6cc06a7c8b098ff4d0007d52.jar" />
-    </item>
-    <item
-        jar="D:\Development\android-sdk\extras\android\m2repository\com\android\support\support-v4\13.0.0\support-v4-13.0.0.jar"
-        jumboMode="false"
-        revision="23.0.0"
-        sha1="3fe75433da602500cc71fcc1c46e5550291dd45d">
-        <dex dex="C:\Users\Nathan\Documents\Development\Android\boycott-bingo\BoycottBingo\build\intermediates\pre-dexed\debug\support-v4-13.0.0-12671e39fa554bb02518fd5f8bf7254d003d9c5b.jar" />
-    </item>
-    <item
         jar="C:\Users\Nathan\Documents\Development\Android\boycott-bingo\BoycottBingo\build\intermediates\exploded-aar\boycott-bingo\BaseGameUtils\unspecified\jars\classes.jar"
         jumboMode="false"
         revision="23.0.0"
-        sha1="a20991a74e53f8aba56773408d3dfa1c38e4a694">
+        sha1="fe54c2f21f0bb711fc5f6ba4d9fe5ca3dcbe91b1">
         <dex dex="C:\Users\Nathan\Documents\Development\Android\boycott-bingo\BoycottBingo\build\intermediates\pre-dexed\debug\classes-a03ee84b18ef15851396bf982a6d0469e35a2ccc.jar" />
+    </item>
+    <item
+        jar="C:\Users\Nathan\Documents\Development\Android\boycott-bingo\BoycottBingo\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.0\jars\libs\internal_impl-21.0.0.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="1609e6d42d0480b0f4188e2c29f75388fa12a8f0">
+        <dex dex="C:\Users\Nathan\Documents\Development\Android\boycott-bingo\BoycottBingo\build\intermediates\pre-dexed\debug\internal_impl-21.0.0-c3f2c9b872a59c321563a6036014a37aae784cf8.jar" />
+    </item>
+    <item
+        jar="C:\Users\Nathan\Documents\Development\Android\boycott-bingo\BoycottBingo\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="686344a780033e4ba22b926cd225f8d4941247e6">
+        <dex dex="C:\Users\Nathan\Documents\Development\Android\boycott-bingo\BoycottBingo\build\intermediates\pre-dexed\debug\classes-61dbe10635ee3e484a6c2c32c5473acbbf3ad5d2.jar" />
+    </item>
+    <item
+        jar="C:\Users\Nathan\Documents\Development\Android\boycott-bingo\BoycottBingo\build\intermediates\exploded-aar\com.android.support\appcompat-v7\20.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="f21927d22fe31889ecce94dd697a2e75b137e0ef">
+        <dex dex="C:\Users\Nathan\Documents\Development\Android\boycott-bingo\BoycottBingo\build\intermediates\pre-dexed\debug\classes-d6c2f09e608855ab711aa164f3dab12fe5403a61.jar" />
+    </item>
+    <item
+        jar="D:\Development\android-sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.0\support-annotations-21.0.0.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="1a578b9607b36266c63d43a4fa0ab5664dbe911e">
+        <dex dex="C:\Users\Nathan\Documents\Development\Android\boycott-bingo\BoycottBingo\build\intermediates\pre-dexed\debug\support-annotations-21.0.0-66e3f143f584794b4b6a232abdebf554c9ddfedd.jar" />
+    </item>
+    <item
+        jar="C:\Users\Nathan\Documents\Development\Android\boycott-bingo\BoycottBingo\build\intermediates\exploded-aar\com.google.android.gms\play-services\6.5.87\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="dd9247ea0fabe8ee479638c4b4a23e93752be256">
+        <dex dex="C:\Users\Nathan\Documents\Development\Android\boycott-bingo\BoycottBingo\build\intermediates\pre-dexed\debug\classes-6f2735f9ecd46f7e2f71c840b2e48d646ec279a9.jar" />
     </item>
 
 </items>
