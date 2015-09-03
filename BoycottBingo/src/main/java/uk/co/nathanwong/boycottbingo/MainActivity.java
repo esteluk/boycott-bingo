@@ -198,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                         // Success!
                         AlertDialog.Builder builder = new AlertDialog.Builder(c);
                         builder.setTitle(getString(R.string.main_dialog_title));
-                        builder.setIcon(R.drawable.ic_good);
+                        builder.setIcon(R.drawable.ic_thumb_up_black);
                         builder.setMessage(getString(R.string.main_dialog_text))
                                 .setCancelable(false)
                                 .setPositiveButton(getString(R.string.main_dialog_positive), new DialogInterface.OnClickListener() {
