@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     private GoogleApiClient mGoogleApiClient;
     private boolean mResolvingConnectionFailure = false;
-    private boolean mAutoStartSignInflow = true;
+    private boolean mAutoStartSignInflow = false;
     private boolean mSignInClicked = false;
 
     private static int RC_SIGN_IN = 9001;
@@ -174,6 +176,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             text.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f));
             text.setGravity(Gravity.CENTER);
             text.setSelected(false);
+            text.setClickable(true);
+            text.setForeground(getSelectedItemDrawable());
             text.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -283,5 +287,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     boolean isSignedIn() {
         return mGoogleApiClient != null && mGoogleApiClient.isConnected();
+    }
+
+    public Drawable getSelectedItemDrawable() {
+        int[] attrs = new int[]{R.attr.selectableItemBackgroundBorderless};
+        TypedArray ta = obtainStyledAttributes(attrs);
+        Drawable selectedItemDrawable = ta.getDrawable(0);
+
+        ta.recycle();
+        return selectedItemDrawable;
     }
 }

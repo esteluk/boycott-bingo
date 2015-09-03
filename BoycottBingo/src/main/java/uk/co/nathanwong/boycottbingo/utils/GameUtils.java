@@ -11,6 +11,8 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.GamesActivityResultCodes;
 
+import uk.co.nathanwong.boycottbingo.R;
+
 /**
  * Helper classes mostly stolen from Google's BaseGameUtils
  * Created by Nathan on 03/09/2015.
@@ -98,15 +100,15 @@ public class GameUtils {
         switch (actResp) {
             case GamesActivityResultCodes.RESULT_APP_MISCONFIGURED:
                 errorDialog = makeSimpleDialog(activity,
-                        activity.getString(com.google.example.games.basegameutils.R.string.app_misconfigured));
+                        activity.getString(R.string.app_misconfigured));
                 break;
             case GamesActivityResultCodes.RESULT_SIGN_IN_FAILED:
                 errorDialog = makeSimpleDialog(activity,
-                        activity.getString(com.google.example.games.basegameutils.R.string.sign_in_failed));
+                        activity.getString(R.string.sign_in_failed));
                 break;
             case GamesActivityResultCodes.RESULT_LICENSE_FAILED:
                 errorDialog = makeSimpleDialog(activity,
-                        activity.getString(com.google.example.games.basegameutils.R.string.license_failed));
+                        activity.getString(R.string.license_failed));
                 break;
             default:
                 // No meaningful Activity response code, so generate default Google

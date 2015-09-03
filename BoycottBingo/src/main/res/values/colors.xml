@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <drawable name="item_unselected">#00ffff00</drawable>
-    <drawable name="item_selected">#00ff00</drawable>
+    <drawable name="item_selected">@color/teal200</drawable>
 
     <color name="teal">#009688</color>
+    <color name="teal200">#80CBC4</color>
     <color name="teal900">#004D40</color>
     <color name="orange">#FF9800</color>
 </resources>
