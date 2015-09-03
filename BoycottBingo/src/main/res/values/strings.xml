@@ -24,6 +24,10 @@
     <string name="license_failed">License check failed.</string>
     <string name="unknown_error">Unknown error.</string>
 
+    <string name="about_credit">Original Boycott Bingo developed by Graham Bleach at http://boycott.gdb.me/</string>
+    <string name="about_credit_logo">Logo LGPL - https://commons.wikimedia.org/wiki/File:Cricket_current_event.svg</string>
+    <string name="about_credit_source">This app: http://github.com/esteluk/boycott-bingo/</string>
+
     <string-array name="boycottisms">
         <item>Corridor of uncertainty</item>
         <item>Could have hit that with a stick of rhubarb</item>
