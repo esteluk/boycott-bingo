@@ -14,6 +14,9 @@
     <string name="main_dialog_negative">No thanks</string>
     <string name="main_leaderboard">View leaderboards</string>
 
+    <string name="menu_about">About</string>
+    <string name="menu_refresh">Refresh</string>
+
     <string name="unable_to_sign_in">Unable to sign in.</string>
 
     <string name="sign_in_failed">Failed to sign in. Please check your network connection and try again.</string>
@@ -38,7 +41,7 @@
         <item>Time in the middle is better than any amount of nets</item>
         <item>Should book in for bed and breakfast on this wicket</item>
         <item>It\'s all about good footwork</item>
-        <item>You can\'t get runs in the pavillion</item>
+        <item>You can\'t get runs in the pavilion</item>
         <item>Show the makers name!</item>
         <item>Bread and butter</item>
         <item>Batting\'s all about grafting</item>
