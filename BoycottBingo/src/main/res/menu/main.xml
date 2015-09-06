@@ -4,8 +4,16 @@
           android:title="@string/menu_refresh"
           android:icon="@drawable/ic_refresh"
           app:showAsAction="ifRoom" />
+    <item android:id="@+id/action_leaderboard"
+        android:title="@string/main_leaderboard"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom" />
     <item android:id="@+id/action_about"
           android:title="@string/menu_about"
           android:orderInCategory="200"
           app:showAsAction="never" />
+    <item android:id="@+id/action_logout"
+        android:title="@string/menu_logout"
+        android:orderInCategory="900"
+        app:showAsAction="never" />
 </menu>

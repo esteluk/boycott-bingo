@@ -109,14 +109,26 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.action_logout).setVisible(isSignedIn());
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch(item.getItemId()) {
             case R.id.action_refresh:
                 onRefreshButtonPress(item);
                 return true;
+            case R.id.action_leaderboard:
+                openLeaderboard();
+                return true;
             case R.id.action_about:
                 openAbout();
+                return true;
+            case R.id.action_logout:
+                Games.signOut(mGoogleApiClient);
                 return true;
             default:
                 return false;
@@ -140,6 +152,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private void openAbout() {
         Intent intent = new Intent(this, AboutActivity.class);
         startActivity(intent);
+    }
+
+    private void openLeaderboard() {
+        startActivityForResult(Games.Leaderboards.getLeaderboardIntent(mGoogleApiClient, getString(R.string.leaderboard_id)), 12345);
     }
 
     public boolean onRefreshButtonPress(MenuItem item) {
@@ -246,7 +262,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             mSignInClicked = true;
             mGoogleApiClient.connect();
         } else if (view.getId() == R.id.main_leaderboard) {
-            startActivityForResult(Games.Leaderboards.getLeaderboardIntent(mGoogleApiClient, getString(R.string.leaderboard_id)), 12345);
+            openLeaderboard();
         }
     }
 
@@ -254,7 +270,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     public void onConnected(Bundle bundle) {
         // The player is signed in
         findViewById(R.id.main_signin).setVisibility(View.GONE);
-        findViewById(R.id.main_leaderboard).setVisibility(View.VISIBLE);
+//        findViewById(R.id.main_leaderboard).setVisibility(View.VISIBLE);
+        supportInvalidateOptionsMenu();
     }
 
     @Override
