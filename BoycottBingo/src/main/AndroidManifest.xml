@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="uk.co.nathanwong.boycottbingo"
-    android:versionCode="3"
-    android:versionName="0.2" >
+    android:versionCode="5"
+    android:versionName="1.0" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -26,6 +28,4 @@
             android:name="io.fabric.ApiKey"
             android:value="c0735bfe4c3be03e7d1b84ba9c55fb9f56691f76" />
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
