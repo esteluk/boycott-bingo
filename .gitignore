@@ -7,8 +7,11 @@ local.properties
 out/
 
 */build/
+build/
 
 *~
 *.swp
 gen/
 *.apk
+
+*.keystore
