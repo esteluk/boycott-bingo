@@ -8,6 +8,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
+        android:name=".BoycottApplication"
         android:theme="@style/AppTheme" >
         <activity
             android:name="uk.co.nathanwong.boycottbingo.MainActivity"
@@ -21,6 +22,10 @@
         <activity android:name=".AboutActivity"/>
         <meta-data android:name="com.google.android.gms.games.APP_ID"
                    android:value="@string/app_id" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="c0735bfe4c3be03e7d1b84ba9c55fb9f56691f76" />
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
