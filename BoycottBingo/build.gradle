@@ -1,12 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
-dependencies {
-    compile "com.android.support:design:${appcompat_library_version}"
-
-    compile "com.google.android.gms:play-services-games:${gms_library_version}"
-}
-
 android {
     compileSdkVersion android_compile_version
     buildToolsVersion android_version
@@ -15,4 +9,26 @@ android {
         minSdkVersion 16
         targetSdkVersion android_compile_version
     }
+
+    buildTypes {
+        debug {
+
+        }
+
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
+}
+
+dependencies {
+    compile "com.android.support:design:${appcompat_library_version}"
+    compile "com.google.android.gms:play-services-games:${gms_library_version}"
+
+    compile 'com.jakewharton:butterknife:7.0.1'
 }
