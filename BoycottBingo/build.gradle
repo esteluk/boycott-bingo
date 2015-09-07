@@ -13,7 +13,10 @@ android {
 
     signingConfigs {
         release {
-
+            keyAlias BINGO_RELEASE_STORE_ALIAS
+            keyPassword BINGO_RELEASE_STORE_PASSWORD
+            storeFile file(BINGO_RELEASE_STORE_FILE)
+            storePassword BINGO_RELEASE_STORE_PASSWORD
         }
     }
 
