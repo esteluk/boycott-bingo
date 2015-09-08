@@ -15,6 +15,8 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -185,16 +187,22 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 ll.setOrientation(LinearLayout.HORIZONTAL);
             }
 
+            FrameLayout frame = new FrameLayout(this);
+            frame.setBackground(getResources().getDrawable(R.drawable.selecttransition));
+            frame.setPadding(10, 10, 10, 10);
+            frame.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f));
+            frame.setSelected(false);
+            frame.setClickable(true);
+            frame.setForeground(getSelectedItemDrawable());
+
             TextView text = new TextView(this);
             text.setText(list.get(i));
-            text.setBackground(getResources().getDrawable(R.drawable.selecttransition));
-            text.setPadding(10, 10, 10, 10);
-            text.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f));
             text.setGravity(Gravity.CENTER);
-            text.setSelected(false);
-            text.setClickable(true);
-            text.setForeground(getSelectedItemDrawable());
-            text.setOnClickListener(new View.OnClickListener() {
+            text.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+            frame.addView(text);
+
+            frame.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     TransitionDrawable transition = (TransitionDrawable) view.getBackground();
@@ -246,9 +254,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 }
             });
 
-            text.setTag(i);
+            frame.setTag(i);
 
-            ll.addView(text);
+            ll.addView(frame);
 
             j++;
         }
