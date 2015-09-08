@@ -9,6 +9,7 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -188,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             }
 
             FrameLayout frame = new FrameLayout(this);
-            frame.setBackground(getResources().getDrawable(R.drawable.selecttransition));
+            frame.setBackground(ContextCompat.getDrawable(this, R.drawable.selecttransition));
             frame.setPadding(10, 10, 10, 10);
             frame.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f));
             frame.setSelected(false);
