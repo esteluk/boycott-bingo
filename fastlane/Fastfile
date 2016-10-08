@@ -36,12 +36,16 @@ platform :android do
 
   desc "Deploy a new version to the Google Play"
   lane :deploy do
-    screenshots
     gradle(task: "assembleRelease")
-    supply
+    supply(apk: "#{lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}")
   end
 
   # You can define as many lanes as you want
+  
+  lane :release do
+    screengrab
+    deploy
+  end
 
   lane :screenshots do
     gradle(task: "assembleDebug")

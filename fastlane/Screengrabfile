@@ -6,7 +6,7 @@
 tests_apk_path 'BoycottBingo/build/outputs/apk/BoycottBingo-debug-androidTest.apk'
 app_apk_path 'BoycottBingo/build/outputs/apk/BoycottBingo-debug.apk'
 
-locales ['en-GB', 'en-AU']
+locales ['en-GB']
 
 # clear all previously generated screenshots in your local output directory before creating new ones
 clear_previous_screenshots true
