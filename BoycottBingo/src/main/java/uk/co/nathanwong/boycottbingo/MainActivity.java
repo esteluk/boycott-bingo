@@ -69,16 +69,7 @@ public class MainActivity extends AppCompatActivity
         editor = settings.edit();
         score = settings.getInt("score", 0);
 
-        if (!GameUtils.isGooglePlayServicesAvailable(this)) {
-            findViewById(R.id.main_signin).setVisibility(View.GONE);
-            findViewById(R.id.main_leaderboard).setVisibility(View.GONE);
-        } if (isSignedIn()) {
-            findViewById(R.id.main_signin).setVisibility(View.GONE);
-            findViewById(R.id.main_leaderboard).setVisibility(View.VISIBLE);
-        } else {
-            findViewById(R.id.main_signin).setVisibility(View.VISIBLE);
-            findViewById(R.id.main_leaderboard).setVisibility(View.GONE);
-        }
+        updateViewState();
 
         findViewById(R.id.main_signin).setOnClickListener(this);
         findViewById(R.id.main_leaderboard).setOnClickListener(this);
@@ -143,6 +134,7 @@ public class MainActivity extends AppCompatActivity
                 return true;
             case R.id.action_logout:
                 Games.signOut(mGoogleApiClient);
+                updateViewState();
                 return true;
             default:
                 return false;
@@ -321,6 +313,19 @@ public class MainActivity extends AppCompatActivity
 
         findViewById(R.id.main_signin).setVisibility(View.VISIBLE);
         findViewById(R.id.main_leaderboard).setVisibility(View.GONE);
+    }
+
+    void updateViewState() {
+        if (!GameUtils.isGooglePlayServicesAvailable(this)) {
+            findViewById(R.id.main_signin).setVisibility(View.GONE);
+            findViewById(R.id.main_leaderboard).setVisibility(View.GONE);
+        } if (isSignedIn()) {
+            findViewById(R.id.main_signin).setVisibility(View.GONE);
+            findViewById(R.id.main_leaderboard).setVisibility(View.VISIBLE);
+        } else {
+            findViewById(R.id.main_signin).setVisibility(View.VISIBLE);
+            findViewById(R.id.main_leaderboard).setVisibility(View.GONE);
+        }
     }
 
     boolean isSignedIn() {

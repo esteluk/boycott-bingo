@@ -7,7 +7,7 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.3"
-        sha1="807b560a640006cae81d79684effa58c0ca53a7c">
+        sha1="ea0a1e6c0c3b5e6eb0eedaa09d4cb4247d68737c">
         <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_b41452c9038567be1454340dda81ca6a5b7a884e/classes.dex" />
     </item>
     <item
@@ -52,7 +52,7 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.3"
-        sha1="62bf09b91e1dc3d5c6c2bbc679ec25685fc40bda">
+        sha1="df13b93313f611bbd45222c86bc54350023570d1">
         <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_bdb2f6c3e6586c8e8cd5dac9a3339e8577181e64/classes.dex" />
     </item>
     <item
