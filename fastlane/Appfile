@@ -1,0 +1,2 @@
+json_key_file "/Users/nathan/Development/android-service-key.json" # Path to the json secret file - Follow https://github.com/fastlane/supply#setup to get one
+package_name "uk.co.nathanwong.boycottbingo" # e.g. com.krausefx.app

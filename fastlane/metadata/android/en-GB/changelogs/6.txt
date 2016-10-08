@@ -1,0 +1,3 @@
+Quiet weekend, so revisited this to give it a lick of paint.
+
+Extra: fixed critical bug with most versions of Android. Sorry.
