@@ -1,6 +1,5 @@
 package uk.co.nathanwong.boycottbingo;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -24,7 +23,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
 
@@ -71,7 +69,7 @@ public class MainActivity extends AppCompatActivity
         editor = settings.edit();
         score = settings.getInt("score", 0);
 
-        if (!isGooglePlayServicesAvailable(this)) {
+        if (!GameUtils.isGooglePlayServicesAvailable(this)) {
             findViewById(R.id.main_signin).setVisibility(View.GONE);
             findViewById(R.id.main_leaderboard).setVisibility(View.GONE);
         } if (isSignedIn()) {
@@ -125,6 +123,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.action_leaderboard).setVisible(isSignedIn());
         menu.findItem(R.id.action_logout).setVisible(isSignedIn());
         return super.onPrepareOptionsMenu(menu);
     }
@@ -315,7 +314,7 @@ public class MainActivity extends AppCompatActivity
             mResolvingConnectionFailure = true;
 
             // Attempt to resolve the failure in Game utils
-            if (!GameUtils.resolveConnectionFailure(this, mGoogleApiClient, connectionResult, RC_SIGN_IN, "There was an issue with sign-in, please try again later.")) {
+            if (!GameUtils.resolveConnectionFailure(this, mGoogleApiClient, connectionResult, RC_SIGN_IN)) {
                 mResolvingConnectionFailure = false;
             }
         }
@@ -337,15 +336,4 @@ public class MainActivity extends AppCompatActivity
         return selectedItemDrawable;
     }
 
-    public boolean isGooglePlayServicesAvailable(Activity activity) {
-        GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
-        int status = googleApiAvailability.isGooglePlayServicesAvailable(activity);
-        if(status != ConnectionResult.SUCCESS) {
-            if(googleApiAvailability.isUserResolvableError(status)) {
-                googleApiAvailability.getErrorDialog(activity, status, 2404).show();
-            }
-            return false;
-        }
-        return true;
-    }
 }
