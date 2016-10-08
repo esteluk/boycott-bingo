@@ -1,5 +1,6 @@
 package uk.co.nathanwong.boycottbingo;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -22,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
 
@@ -68,7 +71,10 @@ public class MainActivity extends AppCompatActivity
         editor = settings.edit();
         score = settings.getInt("score", 0);
 
-        if (isSignedIn()) {
+        if (!isGooglePlayServicesAvailable(this)) {
+            findViewById(R.id.main_signin).setVisibility(View.GONE);
+            findViewById(R.id.main_leaderboard).setVisibility(View.GONE);
+        } if (isSignedIn()) {
             findViewById(R.id.main_signin).setVisibility(View.GONE);
             findViewById(R.id.main_leaderboard).setVisibility(View.VISIBLE);
         } else {
@@ -108,6 +114,11 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+
+        Drawable drawable = menu.findItem(R.id.action_refresh).getIcon();
+        drawable = DrawableCompat.wrap(drawable);
+        DrawableCompat.setTint(drawable, ContextCompat.getColor(this, android.R.color.white));
+        menu.findItem(R.id.action_refresh).setIcon(drawable);
 
         return true;
     }
@@ -226,7 +237,6 @@ public class MainActivity extends AppCompatActivity
                         // Success!
                         AlertDialog.Builder builder = new AlertDialog.Builder(c);
                         builder.setTitle(getString(R.string.main_dialog_title));
-                        builder.setIcon(R.drawable.ic_thumb_up_black);
                         builder.setMessage(getString(R.string.main_dialog_text))
                                 .setCancelable(false)
                                 .setPositiveButton(getString(R.string.main_dialog_positive), new DialogInterface.OnClickListener() {
@@ -325,5 +335,17 @@ public class MainActivity extends AppCompatActivity
 
         ta.recycle();
         return selectedItemDrawable;
+    }
+
+    public boolean isGooglePlayServicesAvailable(Activity activity) {
+        GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
+        int status = googleApiAvailability.isGooglePlayServicesAvailable(activity);
+        if(status != ConnectionResult.SUCCESS) {
+            if(googleApiAvailability.isUserResolvableError(status)) {
+                googleApiAvailability.getErrorDialog(activity, status, 2404).show();
+            }
+            return false;
+        }
+        return true;
     }
 }
