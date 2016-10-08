@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -68,13 +69,7 @@ public class MainActivity extends AppCompatActivity
         editor = settings.edit();
         score = settings.getInt("score", 0);
 
-        if (isSignedIn()) {
-            findViewById(R.id.main_signin).setVisibility(View.GONE);
-            findViewById(R.id.main_leaderboard).setVisibility(View.VISIBLE);
-        } else {
-            findViewById(R.id.main_signin).setVisibility(View.VISIBLE);
-            findViewById(R.id.main_leaderboard).setVisibility(View.GONE);
-        }
+        updateViewState();
 
         findViewById(R.id.main_signin).setOnClickListener(this);
         findViewById(R.id.main_leaderboard).setOnClickListener(this);
@@ -109,11 +104,17 @@ public class MainActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
 
+        Drawable drawable = menu.findItem(R.id.action_refresh).getIcon();
+        drawable = DrawableCompat.wrap(drawable);
+        DrawableCompat.setTint(drawable, ContextCompat.getColor(this, android.R.color.white));
+        menu.findItem(R.id.action_refresh).setIcon(drawable);
+
         return true;
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.action_leaderboard).setVisible(isSignedIn());
         menu.findItem(R.id.action_logout).setVisible(isSignedIn());
         return super.onPrepareOptionsMenu(menu);
     }
@@ -133,6 +134,7 @@ public class MainActivity extends AppCompatActivity
                 return true;
             case R.id.action_logout:
                 Games.signOut(mGoogleApiClient);
+                updateViewState();
                 return true;
             default:
                 return false;
@@ -226,7 +228,6 @@ public class MainActivity extends AppCompatActivity
                         // Success!
                         AlertDialog.Builder builder = new AlertDialog.Builder(c);
                         builder.setTitle(getString(R.string.main_dialog_title));
-                        builder.setIcon(R.drawable.ic_thumb_up_black);
                         builder.setMessage(getString(R.string.main_dialog_text))
                                 .setCancelable(false)
                                 .setPositiveButton(getString(R.string.main_dialog_positive), new DialogInterface.OnClickListener() {
@@ -305,13 +306,26 @@ public class MainActivity extends AppCompatActivity
             mResolvingConnectionFailure = true;
 
             // Attempt to resolve the failure in Game utils
-            if (!GameUtils.resolveConnectionFailure(this, mGoogleApiClient, connectionResult, RC_SIGN_IN, "There was an issue with sign-in, please try again later.")) {
+            if (!GameUtils.resolveConnectionFailure(this, mGoogleApiClient, connectionResult, RC_SIGN_IN)) {
                 mResolvingConnectionFailure = false;
             }
         }
 
         findViewById(R.id.main_signin).setVisibility(View.VISIBLE);
         findViewById(R.id.main_leaderboard).setVisibility(View.GONE);
+    }
+
+    void updateViewState() {
+        if (!GameUtils.isGooglePlayServicesAvailable(this)) {
+            findViewById(R.id.main_signin).setVisibility(View.GONE);
+            findViewById(R.id.main_leaderboard).setVisibility(View.GONE);
+        } if (isSignedIn()) {
+            findViewById(R.id.main_signin).setVisibility(View.GONE);
+            findViewById(R.id.main_leaderboard).setVisibility(View.VISIBLE);
+        } else {
+            findViewById(R.id.main_signin).setVisibility(View.VISIBLE);
+            findViewById(R.id.main_leaderboard).setVisibility(View.GONE);
+        }
     }
 
     boolean isSignedIn() {
@@ -326,4 +340,5 @@ public class MainActivity extends AppCompatActivity
         ta.recycle();
         return selectedItemDrawable;
     }
+
 }
