@@ -31,7 +31,8 @@ import java.util.List;
 
 import uk.co.nathanwong.boycottbingo.utils.GameUtils;
 
-public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
+public class MainActivity extends AppCompatActivity
+        implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
 
     List<String> list;
     LinearLayout rows;
@@ -158,7 +159,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     private void openLeaderboard() {
-        startActivityForResult(Games.Leaderboards.getLeaderboardIntent(mGoogleApiClient, getString(R.string.leaderboard_id)), 12345);
+        if (mGoogleApiClient.isConnected()) {
+            startActivityForResult(Games.Leaderboards.getLeaderboardIntent(mGoogleApiClient, getString(R.string.leaderboard_id)), 12345);
+        }
     }
 
     public boolean onRefreshButtonPress(MenuItem item) {
