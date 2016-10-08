@@ -36,11 +36,18 @@ platform :android do
 
   desc "Deploy a new version to the Google Play"
   lane :deploy do
+    screenshots
     gradle(task: "assembleRelease")
     supply
   end
 
   # You can define as many lanes as you want
+
+  lane :screenshots do
+    gradle(task: "assembleDebug")
+    gradle(task: "assembleAndroidTest")
+    screengrab
+  end
 
   after_all do |lane|
     # This block is called, only if the executed lane was successful

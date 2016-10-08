@@ -2,274 +2,400 @@
 <items version="2" >
 
     <item
-        is-multidex="true"
-        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="ea0a1e6c0c3b5e6eb0eedaa09d4cb4247d68737c">
-        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_b41452c9038567be1454340dda81ca6a5b7a884e/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support/support-compat/24.2.1/jars/libs/internal_impl-24.2.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
-        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_3c5f3b227f5338354d37b9e2c336d9e34666aa4e/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.google.android.gms/play-services-games/9.6.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="d45c048bb1c55cf963899190e507065aea8e5be9">
-        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-games-9.6.1_11382f392eabcea330a6b2db8bf2f7f0fd3ddee8/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="d5c731fc64c03dfe04d51134955b483551c35849">
-        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-24.2.1_56da69e99fac9f64f3115537dd55f84eb976954a/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/io.fabric.sdk.android/fabric/1.3.6/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="fc82596d7f7683c8b3a7e5715a2ed5295c586887">
-        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/transforms/dex/debug/folders/1000/10/io.fabric.sdk.android-fabric-1.3.6_cda5d01799f1d675da95b58dad891ee5e43c5c73/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="df13b93313f611bbd45222c86bc54350023570d1">
-        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_bdb2f6c3e6586c8e8cd5dac9a3339e8577181e64/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/libs/internal_impl-24.2.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
-        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_b49c4723532392c7bcc7b42d4f03290fdcd764f9/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support/support-fragment/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
-        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-fragment-24.2.1_bdf8ab95baae1e1e98e0994473b101fb392ba8f9/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support/support-fragment/24.2.1/jars/libs/internal_impl-24.2.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="5f64d657e838e8375135c0f6057a7ff8fab6a50e">
-        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_8a7502a2329c4bceba736d98cb94fddeba1c669b/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support/support-compat/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
-        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-compat-24.2.1_53bcdd5ba508ee8db6c07493c6d81c081674ef1a/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support/design/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="e03f47f3d1017a093bb3239d4ec47c3447f40744">
-        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-design-24.2.1_da9551002821440062b117a6f2bddc660ab29d04/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
-        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-media-compat-24.2.1_a2ae5312442ec256f3390cedc323b91b29126a5a/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="94bc1dfb84dcc8b6f6f8f7cc726d7b2dd39c1574">
-        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-24.2.1_6b45f1d205a60cf0150acd507df2fc99b3cb07db/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support/support-core-utils/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
-        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-utils-24.2.1_5b311921260bab922c1c1b70014790a7d61ed6d6/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.6.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="af7582c6b327449c6d32518e6a10307860b7b5d6">
-        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-base-9.6.1_e66189cd32e20e766731b65d3f50ace616963782/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support/support-v4/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-24.2.1_69bcf6ae69d943fd08f5c3b279eaca71ddd0ae91/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="7521486d9bfd2cd9e756e0cf75ed7d97f2ce2d3b">
-        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-recyclerview-v7-24.2.1_b73847e69b102c1f8c0f7cb44a76cd8d30a70fa4/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
-        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-24.2.1_181a6ef4ee1965805ce94b449aec4924d36a7527/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
+        is-multidex="false"
         jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.google.android.gms/play-services-tasks/9.6.1/jars/classes.jar"
-        jumboMode="true"
+        jumboMode="false"
         optimize="true"
         revision="24.0.3"
         sha1="4a36600281a648769411ef642c331851732bf29e">
-        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-tasks-9.6.1_7f58ebb9ec126cdbc20b1a008c12c1692933001f/classes.dex" />
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-tasks-9.6.1_7f58ebb9ec126cdbc20b1a008c12c1692933001f.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="/Users/nathan/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife/7.0.1/d5d13ea991eab0252e3710e5df3d6a9d4b21d461/butterknife-7.0.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="d5d13ea991eab0252e3710e5df3d6a9d4b21d461">
-        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/transforms/dex/debug/folders/1000/10/butterknife-7.0.1_f4bdc17d4fb3e33eec5c3f0e8fb799f5f265cebf/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
+        is-multidex="false"
         jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support/support-core-ui/24.2.1/jars/classes.jar"
-        jumboMode="true"
+        jumboMode="false"
         optimize="true"
         revision="24.0.3"
         sha1="e7f3132168957eefc46229fc32c3bd464642b71e">
-        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-ui-24.2.1_68a26f30ec08686435445c8ba59fbdde314b08a6/classes.dex" />
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/debug/com.android.support-support-core-ui-24.2.1_68a26f30ec08686435445c8ba59fbdde314b08a6.jar" />
     </item>
     <item
-        is-multidex="true"
+        is-multidex="false"
+        jar="/Users/nathan/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife/7.0.1/d5d13ea991eab0252e3710e5df3d6a9d4b21d461/butterknife-7.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="d5d13ea991eab0252e3710e5df3d6a9d4b21d461">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/debug/butterknife-7.0.1_f4bdc17d4fb3e33eec5c3f0e8fb799f5f265cebf.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nathan/.gradle/caches/modules-2/files-2.1/com.squareup/javawriter/2.1.1/67ff45d9ae02e583d0f9b3432a5ebbe05c30c966/javawriter-2.1.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="67ff45d9ae02e583d0f9b3432a5ebbe05c30c966">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/androidTest/debug/javawriter-2.1.1_dd015fd08a267c759230ab218166e11c764a9982.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support.test.espresso/espresso-idling-resource/2.2.2/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="a890ee8445927649d9ed50f625a315d8758688be">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/androidTest/debug/com.android.support.test.espresso-espresso-idling-resource-2.2.2_37a6cea3905abdd1ab623014a2557dde609b75db.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nathan/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/42a25dc3219429f0e5d060061f71acb49bf010a0/hamcrest-core-1.3.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="42a25dc3219429f0e5d060061f71acb49bf010a0">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/androidTest/debug/hamcrest-core-1.3_ac3c0cc7716dd021fe919c7d6e2e8c93fab1da65.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.crashlytics.sdk.android/answers/1.3.2/jars/classes.jar"
-        jumboMode="true"
+        jumboMode="false"
         optimize="true"
         revision="24.0.3"
         sha1="e99413cdc93bd7b001d312a4a33d25ac21042f69">
-        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/transforms/dex/debug/folders/1000/10/com.crashlytics.sdk.android-answers-1.3.2_68c4f16ac54d66deb1f12baa481ad1520d878e7a/classes.dex" />
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/debug/com.crashlytics.sdk.android-answers-1.3.2_68c4f16ac54d66deb1f12baa481ad1520d878e7a.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.google.android.gms/play-services-drive/9.6.1/jars/classes.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support.test/exposed-instrumentation-api-publish/0.5/jars/classes.jar"
+        jumboMode="false"
         optimize="true"
         revision="24.0.3"
-        sha1="f8db47be01cbe8cfa81e9cecce5ff1371ed1ad95">
-        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-drive-9.6.1_0823b294999dff78961ce2990a5602b8eec8b700/classes.dex" />
+        sha1="905f3e63973d47fedf2d945fa31d8c0f0c98816e">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/androidTest/debug/com.android.support.test-exposed-instrumentation-api-publish-0.5_cb040165f5e3cbe4fd3779300879921e451eb16c.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.crashlytics.sdk.android/crashlytics-core/2.3.5/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="d18ba1d0eff55680fdf9a35f70a6091e4bc1adcb">
-        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/transforms/dex/debug/folders/1000/10/com.crashlytics.sdk.android-crashlytics-core-2.3.5_42d4ec12427f48af88d1266bf3a83cef802f554e/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/9.6.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="eccaaa9ffa6bb4bfbd2e870f01aaf69655d353be">
-        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-basement-9.6.1_639966837291ba0ab5178218bbdf3f755190a8cd/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.crashlytics.sdk.android/crashlytics/2.5.2/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="0c7f9fb9a729166c69fa585e01be2fe8fab4f45c">
-        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/transforms/dex/debug/folders/1000/10/com.crashlytics.sdk.android-crashlytics-2.5.2_2dd186b1a7f9cbb01f7f4e8f0d891183ea3d3c98/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.crashlytics.sdk.android/beta/1.1.3/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="b7a78990c10481f43cb4909f535ef4f11e60f1ab">
-        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/transforms/dex/debug/folders/1000/10/com.crashlytics.sdk.android-beta-1.1.3_33372561cf0fdaaddc595214ba3794572b4e6985/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
+        is-multidex="false"
         jar="/Users/nathan/Development/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/24.2.1/support-annotations-24.2.1.jar"
-        jumboMode="true"
+        jumboMode="false"
         optimize="true"
         revision="24.0.3"
         sha1="8de3aafecbdf98a61db6427f008f2d515bcd2544">
-        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-24.2.1_9a99a8d4aa189ea05060cdb2eb38c6833ed5deba/classes.dex" />
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/debug/support-annotations-24.2.1_9a99a8d4aa189ea05060cdb2eb38c6833ed5deba.jar" />
     </item>
     <item
-        is-multidex="true"
+        is-multidex="false"
+        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/9.6.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="eccaaa9ffa6bb4bfbd2e870f01aaf69655d353be">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-basement-9.6.1_639966837291ba0ab5178218bbdf3f755190a8cd.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/24.2.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="94bc1dfb84dcc8b6f6f8f7cc726d7b2dd39c1574">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/debug/com.android.support-animated-vector-drawable-24.2.1_6b45f1d205a60cf0150acd507df2fc99b3cb07db.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nathan/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-library/1.3/4785a3c21320980282f9f33d0d1264a69040538f/hamcrest-library-1.3.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="4785a3c21320980282f9f33d0d1264a69040538f">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/androidTest/debug/hamcrest-library-1.3_f0ef231d9c56f7b18ef9aec446c973f87144c766.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nathan/Development/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.1/support-annotations-23.1.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/androidTest/debug/support-annotations-23.1.1_ba509c808e9ce329575e85e3e38b9fe459ed68aa.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.crashlytics.sdk.android/beta/1.1.3/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="b7a78990c10481f43cb4909f535ef4f11e60f1ab">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/debug/com.crashlytics.sdk.android-beta-1.1.3_33372561cf0fdaaddc595214ba3794572b4e6985.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nathan/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-integration/1.3/5de0c73fef18917cd85d0ab70bb23818685e4dfd/hamcrest-integration-1.3.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="5de0c73fef18917cd85d0ab70bb23818685e4dfd">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/androidTest/debug/hamcrest-integration-1.3_cafeab37a3855d58b51c5fad3d1e69b343ec2e33.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.crashlytics.sdk.android/crashlytics/2.5.2/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="0c7f9fb9a729166c69fa585e01be2fe8fab4f45c">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/debug/com.crashlytics.sdk.android-crashlytics-2.5.2_2dd186b1a7f9cbb01f7f4e8f0d891183ea3d3c98.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support/support-fragment/24.2.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/debug/com.android.support-support-fragment-24.2.1_bdf8ab95baae1e1e98e0994473b101fb392ba8f9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support.test.espresso/espresso-core/2.2.2/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="d115b0e9e1501135fe91254ba884fcbd83d374c0">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/androidTest/debug/com.android.support.test.espresso-espresso-core-2.2.2_b8c1d19ab7d34c54687cc581a18c38b097895414.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.crashlytics.sdk.android/crashlytics-core/2.3.5/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="d18ba1d0eff55680fdf9a35f70a6091e4bc1adcb">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/debug/com.crashlytics.sdk.android-crashlytics-core-2.3.5_42d4ec12427f48af88d1266bf3a83cef802f554e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nathan/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/2.0.1/516c03b21d50a644d538de0f0369c620989cd8f0/jsr305-2.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="516c03b21d50a644d538de0f0369c620989cd8f0">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/androidTest/debug/jsr305-2.0.1_b06c27a6eba7ead60f2a3f605bb353927ce55a6a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nathan/.gradle/caches/modules-2/files-2.1/javax.annotation/javax.annotation-api/1.2/479c1e06db31c432330183f5cae684163f186146/javax.annotation-api-1.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="479c1e06db31c432330183f5cae684163f186146">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/androidTest/debug/javax.annotation-api-1.2_669e528101455b7f8c957e3857999e6e97e589c3.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support/support-core-utils/24.2.1/jars/libs/internal_impl-24.2.1.jar"
-        jumboMode="true"
+        jumboMode="false"
         optimize="true"
         revision="24.0.3"
         sha1="935a969265b2a166b2d20415423f5f6e90fe16e0">
-        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_aec3524a6445bb1aeaf15e306ed415ca8ac9de63/classes.dex" />
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/debug/internal_impl-24.2.1_aec3524a6445bb1aeaf15e306ed415ca8ac9de63.jar" />
     </item>
     <item
-        is-multidex="true"
+        is-multidex="false"
+        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.google.android.gms/play-services-drive/9.6.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="f8db47be01cbe8cfa81e9cecce5ff1371ed1ad95">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-drive-9.6.1_0823b294999dff78961ce2990a5602b8eec8b700.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support.test.uiautomator/uiautomator-v18/2.1.2/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="d9ebd18603c0013727799e7ed41bcb42f3df75c0">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/androidTest/debug/com.android.support.test.uiautomator-uiautomator-v18-2.1.2_c022a91348e1281530693770854e73e5d32b1c95.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support/support-compat/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/debug/internal_impl-24.2.1_3c5f3b227f5338354d37b9e2c336d9e34666aa4e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.google.android.gms/play-services-games/9.6.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="d45c048bb1c55cf963899190e507065aea8e5be9">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-games-9.6.1_11382f392eabcea330a6b2db8bf2f7f0fd3ddee8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/24.2.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="d5c731fc64c03dfe04d51134955b483551c35849">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/debug/com.android.support-support-vector-drawable-24.2.1_56da69e99fac9f64f3115537dd55f84eb976954a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nathan/.gradle/caches/modules-2/files-2.1/javax.inject/javax.inject/1/6975da39a7040257bd51d21a231b76c915872d38/javax.inject-1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="6975da39a7040257bd51d21a231b76c915872d38">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/androidTest/debug/javax.inject-1_4acc7fd64a5633c46d18570afc6014480e0e36ad.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support/support-core-ui/24.2.1/jars/libs/internal_impl-24.2.1.jar"
-        jumboMode="true"
+        jumboMode="false"
         optimize="true"
         revision="24.0.3"
         sha1="867dad63c33388ff8c7644b236579355036d075f">
-        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_bd326fc1ae9c2988191be0bb1d1678672e9ec804/classes.dex" />
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/debug/internal_impl-24.2.1_bd326fc1ae9c2988191be0bb1d1678672e9ec804.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/io.fabric.sdk.android/fabric/1.3.6/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="fc82596d7f7683c8b3a7e5715a2ed5295c586887">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/debug/io.fabric.sdk.android-fabric-1.3.6_cda5d01799f1d675da95b58dad891ee5e43c5c73.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/tools.fastlane/screengrab/0.5.3/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="6895f06a6edecb075bf418e01ee73f43e0642f08">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/androidTest/debug/tools.fastlane-screengrab-0.5.3_586d1e6d0dd01e7150509291b8c7c3b49ea09f10.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/debug/internal_impl-24.2.1_b49c4723532392c7bcc7b42d4f03290fdcd764f9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support/support-core-utils/24.2.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/debug/com.android.support-support-core-utils-24.2.1_5b311921260bab922c1c1b70014790a7d61ed6d6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support/support-fragment/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="5f64d657e838e8375135c0f6057a7ff8fab6a50e">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/debug/internal_impl-24.2.1_8a7502a2329c4bceba736d98cb94fddeba1c669b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nathan/.gradle/caches/modules-2/files-2.1/junit/junit/4.12/2973d150c0dc1fefe998f834810d68f278ea58ec/junit-4.12.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="2973d150c0dc1fefe998f834810d68f278ea58ec">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/androidTest/debug/junit-4.12_e0bb9e8cc17105dd7aa864f397fa7ae1539e3dfa.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support.test/runner/0.5/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="796f9229948e907471c5595fbe94655ccf03ff73">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/androidTest/debug/com.android.support.test-runner-0.5_b9f07a14103eb22369aca057215f4c03fa52dd6c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support/support-compat/24.2.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/debug/com.android.support-support-compat-24.2.1_53bcdd5ba508ee8db6c07493c6d81c081674ef1a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support/design/24.2.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="e03f47f3d1017a093bb3239d4ec47c3447f40744">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/debug/com.android.support-design-24.2.1_da9551002821440062b117a6f2bddc660ab29d04.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support.test/rules/0.5/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="7e11799d8a26bfa5d48acafe012ee5545b9bf468">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/androidTest/debug/com.android.support.test-rules-0.5_f406edfe582760c44dc1fe59fd77f156fc86ad80.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/debug/com.android.support-support-media-compat-24.2.1_a2ae5312442ec256f3390cedc323b91b29126a5a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.6.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="af7582c6b327449c6d32518e6a10307860b7b5d6">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-base-9.6.1_e66189cd32e20e766731b65d3f50ace616963782.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.2.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-24.2.1_181a6ef4ee1965805ce94b449aec4924d36a7527.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support/support-v4/24.2.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/debug/com.android.support-support-v4-24.2.1_69bcf6ae69d943fd08f5c3b279eaca71ddd0ae91.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/24.2.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="7521486d9bfd2cd9e756e0cf75ed7d97f2ce2d3b">
+        <dex dex="/Users/nathan/Development/Android/boycott-bingo/BoycottBingo/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-24.2.1_b73847e69b102c1f8c0f7cb44a76cd8d30a70fa4.jar" />
     </item>
 
 </items>

@@ -9,6 +9,7 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion android_compile_version
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     signingConfigs {
@@ -35,6 +36,11 @@ android {
     packagingOptions {
         exclude 'META-INF/services/javax.annotation.processing.Processor'
     }
+    sourceSets {
+        debug {
+            manifest.srcFile 'src/debug/AndroidManifest.xml'
+        }
+    }
 }
 
 repositories {
@@ -47,5 +53,10 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
     compile('com.crashlytics.sdk.android:crashlytics:2.5.2@aar') {
         transitive = true;
+    }
+
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
+    androidTestCompile ('tools.fastlane:screengrab:0.5.3') {
+        exclude module: 'support-annotations'
     }
 }
