@@ -1,45 +1,35 @@
 package uk.co.nathanwong.boycottbingo;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
 
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
+import uk.co.nathanwong.boycottbingo.interfaces.BingoDataProvider;
+import uk.co.nathanwong.boycottbingo.models.BingoStringArrayDataProvider;
 import uk.co.nathanwong.boycottbingo.utils.GameUtils;
+import uk.co.nathanwong.boycottbingo.views.BingoView;
 
 public class MainActivity extends AppCompatActivity
         implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
 
-    List<String> list;
-    LinearLayout rows;
+    BingoView bingoView;
     Toolbar toolbar;
-    public int count = 0;
-    Context c;
 
     SharedPreferences settings = null;
     SharedPreferences.Editor editor = null;
@@ -74,17 +64,15 @@ public class MainActivity extends AppCompatActivity
         findViewById(R.id.main_signin).setOnClickListener(this);
         findViewById(R.id.main_leaderboard).setOnClickListener(this);
 
-        c = this;
-
         String[] strings = getResources().getStringArray(R.array.boycottisms);
-        list = Arrays.asList(strings);
-        Collections.shuffle(list);
+        BingoDataProvider dataProvider = new BingoStringArrayDataProvider(Arrays.asList(strings), BINGO_SIZE);
 
-        rows = (LinearLayout) findViewById(R.id.main_rows);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        bingoView = findViewById(R.id.main_rows);
+        bingoView.setDataProvider(dataProvider);
+
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        this.createBingo();
     }
 
     @Override
@@ -166,108 +154,59 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public boolean onRefreshButtonPress(MenuItem item) {
-        rows.removeAllViews();
-        this.createBingo();
-
-        return true;
+    public void onRefreshButtonPress(MenuItem item) {
+        bingoView.regenerate();
     }
 
-    private void createBingo() {
-        count = 0;
-        Collections.shuffle(list);
+//    private void createBingo() {
 
-        LinearLayout ll = new LinearLayout(this);
-        ll.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 1.0f));
-        ll.setOrientation(LinearLayout.HORIZONTAL);
-
-        int j = 0;
-        for (int i = 0; i < BINGO_SIZE; i++) {
-            if (j <  Math.ceil(Math.sqrt(BINGO_SIZE))) {
-                // yes
-            } else {
-                j = 0;
-                rows.addView(ll);
-                ll = new LinearLayout(this);
-                ll.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 1.0f));
-                ll.setOrientation(LinearLayout.HORIZONTAL);
-            }
-
-            FrameLayout frame = new FrameLayout(this);
-            frame.setBackground(ContextCompat.getDrawable(this, R.drawable.selecttransition));
-            frame.setPadding(10, 10, 10, 10);
-            frame.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f));
-            frame.setSelected(false);
-            frame.setClickable(true);
-            frame.setForeground(getSelectedItemDrawable());
-
-            TextView text = new TextView(this);
-            text.setText(list.get(i));
-            text.setGravity(Gravity.CENTER);
-            text.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
-            frame.addView(text);
-
-            frame.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    TransitionDrawable transition = (TransitionDrawable) view.getBackground();
-
-                    if (!view.isSelected()) {
-                        // Unselected
-                        transition.startTransition(200);
-                        view.setSelected(true);
-                        count++;
-                    } else {
-                        transition.reverseTransition(200);
-                        view.setSelected(false);
-                        count--;
-                    }
-
-                    if (count == 9) {
-                        // Success!
-                        AlertDialog.Builder builder = new AlertDialog.Builder(c);
-                        builder.setTitle(getString(R.string.main_dialog_title));
-                        builder.setMessage(getString(R.string.main_dialog_text))
-                                .setCancelable(false)
-                                .setPositiveButton(getString(R.string.main_dialog_positive), new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        MainActivity.this.onRefreshButtonPress(null);
-                                    }
-                                })
-                                .setNegativeButton(getString(R.string.main_dialog_negative), new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        dialogInterface.cancel();
-                                    }
-                                });
-
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
-
-                        if (isSignedIn()) {
-                            // Submit leaderboard score
-                            score++;
-                            Games.Leaderboards.submitScore(mGoogleApiClient, getString(R.string.leaderboard_id), score);
-                            editor.putInt("score", score);
-
-                            editor.commit();
-                        }
-                    }
-
-                }
-            });
-
-            frame.setTag(i);
-
-            ll.addView(frame);
-
-            j++;
-        }
-
-        rows.addView(ll);
-    }
+//            frame.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    TransitionDrawable transition = (TransitionDrawable) view.getBackground();
+//
+//                    if (!view.isSelected()) {
+//                        // Unselected
+//                        transition.startTransition(200);
+//                        view.setSelected(true);
+//                        count++;
+//                    } else {
+//                        transition.reverseTransition(200);
+//                        view.setSelected(false);
+//                        count--;
+//                    }
+//
+//                    if (count == 9) {
+//                        // Success!
+//                        AlertDialog.Builder builder = new AlertDialog.Builder(c);
+//                        builder.setTitle(getString(R.string.main_dialog_title));
+//                        builder.setMessage(getString(R.string.main_dialog_text))
+//                                .setCancelable(false)
+//                                .setPositiveButton(getString(R.string.main_dialog_positive), new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialogInterface, int i) {
+//                                        MainActivity.this.onRefreshButtonPress(null);
+//                                    }
+//                                })
+//                                .setNegativeButton(getString(R.string.main_dialog_negative), new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialogInterface, int i) {
+//                                        dialogInterface.cancel();
+//                                    }
+//                                });
+//
+//                        AlertDialog dialog = builder.create();
+//                        dialog.show();
+//
+//                        if (isSignedIn()) {
+//                            // Submit leaderboard score
+//                            score++;
+//                            Games.Leaderboards.submitScore(mGoogleApiClient, getString(R.string.leaderboard_id), score);
+//                            editor.putInt("score", score);
+//
+//                            editor.commit();
+//                        }
+//                    }
 
     @Override
     public void onClick(View view) {
