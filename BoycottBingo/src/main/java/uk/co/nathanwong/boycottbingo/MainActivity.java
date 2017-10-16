@@ -15,23 +15,23 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.games.Games;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import uk.co.nathanwong.boycottbingo.interfaces.BingoDataProvider;
+import uk.co.nathanwong.boycottbingo.manager.PlayServicesManager;
+import uk.co.nathanwong.boycottbingo.manager.PlayServicesManagerDelegate;
+import uk.co.nathanwong.boycottbingo.manager.PlayServicesManagerState;
 import uk.co.nathanwong.boycottbingo.models.BingoStringArrayDataProvider;
 import uk.co.nathanwong.boycottbingo.models.BingoViewModelState;
-import uk.co.nathanwong.boycottbingo.utils.GameUtils;
 import uk.co.nathanwong.boycottbingo.viewmodels.BingoViewViewModel;
 import uk.co.nathanwong.boycottbingo.views.BingoView;
 
 public class MainActivity extends AppCompatActivity
-        implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
+        implements PlayServicesManagerDelegate, View.OnClickListener {
 
     BingoView bingoView;
     BingoViewViewModel viewModel;
@@ -41,13 +41,8 @@ public class MainActivity extends AppCompatActivity
     SharedPreferences.Editor editor = null;
     int score = 0;
 
-    private GoogleApiClient mGoogleApiClient;
+    private PlayServicesManager mPlayServicesManager;
     private AlertDialog mAlertDialog;
-    private boolean mResolvingConnectionFailure = false;
-    private boolean mAutoStartSignInflow = false;
-    private boolean mSignInClicked = false;
-
-    private static int RC_SIGN_IN = 9001;
 
     private static final int BINGO_SIZE = 9;
 
@@ -56,16 +51,10 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(Games.API).addScope(Games.SCOPE_GAMES)
-                .build();
-
-        updateViewState();
+        mPlayServicesManager = new PlayServicesManager(this);
+        mPlayServicesManager.setDelegate(this);
 
         findViewById(R.id.main_signin).setOnClickListener(this);
-        findViewById(R.id.main_leaderboard).setOnClickListener(this);
 
         String[] strings = getResources().getStringArray(R.array.boycottisms);
         BingoDataProvider dataProvider = new BingoStringArrayDataProvider(Arrays.asList(strings), BINGO_SIZE);
@@ -84,13 +73,13 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
-        mGoogleApiClient.connect();
+        mPlayServicesManager.connectIfAvailable();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        mGoogleApiClient.disconnect();
+        mPlayServicesManager.disconnectIfAvailable();
     }
 
     @Override
@@ -108,8 +97,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.action_leaderboard).setVisible(isSignedIn());
-        menu.findItem(R.id.action_logout).setVisible(isSignedIn());
+        menu.findItem(R.id.action_leaderboard).setVisible(mPlayServicesManager.isSignedIn());
+        menu.findItem(R.id.action_logout).setVisible(mPlayServicesManager.isSignedIn());
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -127,8 +116,7 @@ public class MainActivity extends AppCompatActivity
                 openAbout();
                 return true;
             case R.id.action_logout:
-                Games.signOut(mGoogleApiClient);
-                updateViewState();
+                mPlayServicesManager.signOut();
                 return true;
             default:
                 return false;
@@ -137,16 +125,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == RC_SIGN_IN) {
-            mSignInClicked = false;
-            mResolvingConnectionFailure = false;
-            if (resultCode == RESULT_OK) {
-                mGoogleApiClient.connect();
-            } else {
-                // Bring up error dialog
-                GameUtils.showActivityResultError(this, requestCode, resultCode, R.string.unable_to_sign_in);
-            }
-        }
+        mPlayServicesManager.processActivityResult(this, requestCode, resultCode);
     }
 
     private Observer<BingoViewModelState> stateObserver = new Observer<BingoViewModelState>() {
@@ -179,8 +158,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void openLeaderboard() {
-        if (mGoogleApiClient.isConnected()) {
-            startActivityForResult(Games.Leaderboards.getLeaderboardIntent(mGoogleApiClient, getString(R.string.leaderboard_id)), 12345);
+        Intent leaderboardIntent = mPlayServicesManager.buildLeaderboardIntent();
+        if (leaderboardIntent != null) {
+            startActivityForResult(leaderboardIntent, 12345);
         }
     }
 
@@ -190,72 +170,15 @@ public class MainActivity extends AppCompatActivity
 
     private void bingoComplete() {
         mAlertDialog.show();
-        if (isSignedIn()) {
-            Games.Leaderboards.submitScore(mGoogleApiClient, getString(R.string.leaderboard_id), incrementScore());
-        }
+        mPlayServicesManager.submitScore(getString(R.string.leaderboard_id), incrementScore());
     }
 
 
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.main_signin) {
-            mSignInClicked = true;
-            mGoogleApiClient.connect();
-        } else if (view.getId() == R.id.main_leaderboard) {
-            openLeaderboard();
+            mPlayServicesManager.clickSignIn();
         }
-    }
-
-    @Override
-    public void onConnected(Bundle bundle) {
-        // The player is signed in
-        findViewById(R.id.main_signin).setVisibility(View.GONE);
-        supportInvalidateOptionsMenu();
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-        mGoogleApiClient.connect();
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-        if (mResolvingConnectionFailure) {
-            // already resolving
-            return;
-        }
-
-        // if we clicked sign-in or if auto was enabled, then launch the sign-in flow
-        if (mSignInClicked || mAutoStartSignInflow) {
-            mAutoStartSignInflow = false;
-            mSignInClicked = false;
-            mResolvingConnectionFailure = true;
-
-            // Attempt to resolve the failure in Game utils
-            if (!GameUtils.resolveConnectionFailure(this, mGoogleApiClient, connectionResult, RC_SIGN_IN)) {
-                mResolvingConnectionFailure = false;
-            }
-        }
-
-        findViewById(R.id.main_signin).setVisibility(View.VISIBLE);
-        findViewById(R.id.main_leaderboard).setVisibility(View.GONE);
-    }
-
-    void updateViewState() {
-        if (!GameUtils.isGooglePlayServicesAvailable(this)) {
-            findViewById(R.id.main_signin).setVisibility(View.GONE);
-            findViewById(R.id.main_leaderboard).setVisibility(View.GONE);
-        } if (isSignedIn()) {
-            findViewById(R.id.main_signin).setVisibility(View.GONE);
-            findViewById(R.id.main_leaderboard).setVisibility(View.VISIBLE);
-        } else {
-            findViewById(R.id.main_signin).setVisibility(View.VISIBLE);
-            findViewById(R.id.main_leaderboard).setVisibility(View.GONE);
-        }
-    }
-
-    boolean isSignedIn() {
-        return mGoogleApiClient != null && mGoogleApiClient.isConnected();
     }
 
     private int incrementScore() {
@@ -288,4 +211,23 @@ public class MainActivity extends AppCompatActivity
 
         return builder.create();
     }
+
+    //region PlayServicesManagerDelegate methods
+    @Override
+    public void playServicesStateDidUpdate(@NotNull PlayServicesManagerState state) {
+        switch (state) {
+            case NOT_AVAILABLE:
+                findViewById(R.id.main_signin).setVisibility(View.GONE);
+                break;
+            case CAN_SIGN_IN:
+                findViewById(R.id.main_signin).setVisibility(View.VISIBLE);
+                break;
+            case SIGNED_IN:
+                findViewById(R.id.main_signin).setVisibility(View.GONE);
+                break;
+        }
+        supportInvalidateOptionsMenu();
+    }
+
+    //endregion
 }
