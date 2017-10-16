@@ -3,8 +3,8 @@ package uk.co.nathanwong.boycottbingo.views
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.LinearLayout
-import uk.co.nathanwong.boycottbingo.interfaces.BingoDataProvider
 import uk.co.nathanwong.boycottbingo.interfaces.BingoSquare
+import uk.co.nathanwong.boycottbingo.viewmodels.BingoViewViewModel
 
 class BingoView @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -14,32 +14,19 @@ class BingoView @JvmOverloads constructor(
         orientation = LinearLayout.VERTICAL
     }
 
-    var dataProvider: BingoDataProvider? = null
+    var viewModel: BingoViewViewModel? = null
         set(value) {
-            buildBingoCard(value)
             field = value
+            value?.observable?.subscribe { bingoSquares ->
+                buildBingoCard(bingoSquares)
+            }
         }
 
-    private var bingoSquares: List<BingoSquare>? = null
-
-    private val squaresPerRow: Int
-        get() {
-            return Math.ceil(Math.sqrt(bingoSquares?.count()?.toDouble() ?: 0.0)).toInt()
-        }
-
-    fun regenerate() {
-        buildBingoCard(dataProvider)
-    }
-
-    private fun buildBingoCard(dataProvider: BingoDataProvider?) {
+    private fun buildBingoCard(bingoSquares: List<BingoSquare>) {
         removeAllViews()
 
-        val realDataProvider = dataProvider?.let { it } ?: return
-        realDataProvider.shuffle()
-        val models = realDataProvider.bingoSquares()
-        bingoSquares = models
-
-        val views = models.map { BingoSquareView(context, it) }
+        val viewModel = viewModel?.let { it } ?: return
+        val views = bingoSquares.map { BingoSquareView(context, it) }
         val rows = ArrayList<LinearLayout>()
 
         var currentRow: LinearLayout? = null
@@ -53,7 +40,7 @@ class BingoView @JvmOverloads constructor(
 
             currentRow.addView(view)
 
-            if (currentRow.childCount >= squaresPerRow) {
+            if (currentRow.childCount >= viewModel.numberOfEntriesPerRow) {
                 rows.add(currentRow)
                 currentRow = null
             }

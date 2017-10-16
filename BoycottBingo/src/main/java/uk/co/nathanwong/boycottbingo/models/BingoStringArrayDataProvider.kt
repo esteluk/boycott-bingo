@@ -12,16 +12,11 @@ class BingoStringArrayDataProvider(stringData: List<String>, val numberOfSquares
         data = stringData.map { BingoSquareStringImpl(it) }
     }
 
-    override fun bingoForPosition(position: Int): BingoSquare {
-        return data[position]
-    }
-
-    override fun bingoSquares(): List<BingoSquare> {
-        return data.subList(0, numberOfSquares)
-    }
-
-    override fun shuffle() {
+    override fun randomBingoSquares(): List<BingoSquare> {
         Collections.shuffle(data)
+        val randomCollection = ArrayList<BingoSquare>()
+        data.subList(0, numberOfSquares).forEach { randomCollection.add(it.copy()) }
+        return randomCollection
     }
 
 }

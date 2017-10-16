@@ -1,13 +1,14 @@
 package uk.co.nathanwong.boycottbingo;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -20,15 +21,20 @@ import com.google.android.gms.games.Games;
 
 import java.util.Arrays;
 
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 import uk.co.nathanwong.boycottbingo.interfaces.BingoDataProvider;
 import uk.co.nathanwong.boycottbingo.models.BingoStringArrayDataProvider;
+import uk.co.nathanwong.boycottbingo.models.BingoViewModelState;
 import uk.co.nathanwong.boycottbingo.utils.GameUtils;
+import uk.co.nathanwong.boycottbingo.viewmodels.BingoViewViewModel;
 import uk.co.nathanwong.boycottbingo.views.BingoView;
 
 public class MainActivity extends AppCompatActivity
         implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
 
     BingoView bingoView;
+    BingoViewViewModel viewModel;
     Toolbar toolbar;
 
     SharedPreferences settings = null;
@@ -36,6 +42,7 @@ public class MainActivity extends AppCompatActivity
     int score = 0;
 
     private GoogleApiClient mGoogleApiClient;
+    private AlertDialog mAlertDialog;
     private boolean mResolvingConnectionFailure = false;
     private boolean mAutoStartSignInflow = false;
     private boolean mSignInClicked = false;
@@ -55,10 +62,6 @@ public class MainActivity extends AppCompatActivity
                 .addApi(Games.API).addScope(Games.SCOPE_GAMES)
                 .build();
 
-        settings = getSharedPreferences("score", Context.MODE_PRIVATE);
-        editor = settings.edit();
-        score = settings.getInt("score", 0);
-
         updateViewState();
 
         findViewById(R.id.main_signin).setOnClickListener(this);
@@ -67,12 +70,15 @@ public class MainActivity extends AppCompatActivity
         String[] strings = getResources().getStringArray(R.array.boycottisms);
         BingoDataProvider dataProvider = new BingoStringArrayDataProvider(Arrays.asList(strings), BINGO_SIZE);
 
+        mAlertDialog = buildAlertDialog();
+
+        viewModel = new BingoViewViewModel(dataProvider);
+        viewModel.getCompletedObservable().subscribe(stateObserver);
         bingoView = findViewById(R.id.main_rows);
-        bingoView.setDataProvider(dataProvider);
+        bingoView.setViewModel(viewModel);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
     }
 
     @Override
@@ -143,6 +149,30 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    private Observer<BingoViewModelState> stateObserver = new Observer<BingoViewModelState>() {
+        @Override
+        public void onSubscribe(Disposable d) {
+
+        }
+
+        @Override
+        public void onNext(BingoViewModelState bingoViewModelState) {
+            if (bingoViewModelState == BingoViewModelState.COMPLETE) {
+                bingoComplete();
+            }
+        }
+
+        @Override
+        public void onError(Throwable e) {
+
+        }
+
+        @Override
+        public void onComplete() {
+
+        }
+    };
+
     private void openAbout() {
         Intent intent = new Intent(this, AboutActivity.class);
         startActivity(intent);
@@ -155,58 +185,16 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void onRefreshButtonPress(MenuItem item) {
-        bingoView.regenerate();
+        viewModel.newBingoBoard();
     }
 
-//    private void createBingo() {
+    private void bingoComplete() {
+        mAlertDialog.show();
+        if (isSignedIn()) {
+            Games.Leaderboards.submitScore(mGoogleApiClient, getString(R.string.leaderboard_id), incrementScore());
+        }
+    }
 
-//            frame.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    TransitionDrawable transition = (TransitionDrawable) view.getBackground();
-//
-//                    if (!view.isSelected()) {
-//                        // Unselected
-//                        transition.startTransition(200);
-//                        view.setSelected(true);
-//                        count++;
-//                    } else {
-//                        transition.reverseTransition(200);
-//                        view.setSelected(false);
-//                        count--;
-//                    }
-//
-//                    if (count == 9) {
-//                        // Success!
-//                        AlertDialog.Builder builder = new AlertDialog.Builder(c);
-//                        builder.setTitle(getString(R.string.main_dialog_title));
-//                        builder.setMessage(getString(R.string.main_dialog_text))
-//                                .setCancelable(false)
-//                                .setPositiveButton(getString(R.string.main_dialog_positive), new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialogInterface, int i) {
-//                                        MainActivity.this.onRefreshButtonPress(null);
-//                                    }
-//                                })
-//                                .setNegativeButton(getString(R.string.main_dialog_negative), new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialogInterface, int i) {
-//                                        dialogInterface.cancel();
-//                                    }
-//                                });
-//
-//                        AlertDialog dialog = builder.create();
-//                        dialog.show();
-//
-//                        if (isSignedIn()) {
-//                            // Submit leaderboard score
-//                            score++;
-//                            Games.Leaderboards.submitScore(mGoogleApiClient, getString(R.string.leaderboard_id), score);
-//                            editor.putInt("score", score);
-//
-//                            editor.commit();
-//                        }
-//                    }
 
     @Override
     public void onClick(View view) {
@@ -222,7 +210,6 @@ public class MainActivity extends AppCompatActivity
     public void onConnected(Bundle bundle) {
         // The player is signed in
         findViewById(R.id.main_signin).setVisibility(View.GONE);
-//        findViewById(R.id.main_leaderboard).setVisibility(View.VISIBLE);
         supportInvalidateOptionsMenu();
     }
 
@@ -271,13 +258,34 @@ public class MainActivity extends AppCompatActivity
         return mGoogleApiClient != null && mGoogleApiClient.isConnected();
     }
 
-    public Drawable getSelectedItemDrawable() {
-        int[] attrs = new int[]{R.attr.selectableItemBackgroundBorderless};
-        TypedArray ta = obtainStyledAttributes(attrs);
-        Drawable selectedItemDrawable = ta.getDrawable(0);
-
-        ta.recycle();
-        return selectedItemDrawable;
+    private int incrementScore() {
+        settings = getSharedPreferences("score", Context.MODE_PRIVATE);
+        editor = settings.edit();
+        score = settings.getInt("score", 0);
+        score++;
+        editor.putInt("score", score);
+        editor.apply();
+        return score;
     }
 
+    private AlertDialog buildAlertDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.main_dialog_title));
+        builder.setMessage(getString(R.string.main_dialog_text))
+                .setCancelable(false)
+                .setPositiveButton(getString(R.string.main_dialog_positive), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        MainActivity.this.onRefreshButtonPress(null);
+                    }
+                })
+                .setNegativeButton(getString(R.string.main_dialog_negative), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+
+        return builder.create();
+    }
 }
