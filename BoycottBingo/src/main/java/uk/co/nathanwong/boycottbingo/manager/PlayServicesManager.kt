@@ -18,6 +18,11 @@ class PlayServicesManager(val context: Activity): GoogleApiClient.ConnectionCall
     private var googleApiClient: GoogleApiClient? = null
 
     var delegate: PlayServicesManagerDelegate? = null
+        set(value) {
+            field = value
+            delegate?.playServicesStateDidUpdate(state)
+        }
+
     private var state: PlayServicesManagerState = PlayServicesManagerState.NOT_AVAILABLE
         set(value) {
             field = value
@@ -25,19 +30,19 @@ class PlayServicesManager(val context: Activity): GoogleApiClient.ConnectionCall
         }
 
     init {
-
         val availability = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context)
-        if (availability == ConnectionResult.SUCCESS) {
-            googleApiClient = GoogleApiClient.Builder(context)
-                    .addConnectionCallbacks(this)
-                    .addOnConnectionFailedListener(this)
-                    .addApi(Games.API).addScope(Games.SCOPE_GAMES)
-                    .build()
-            state = PlayServicesManagerState.CAN_SIGN_IN
-        } else {
-            state = PlayServicesManagerState.NOT_AVAILABLE
+        when (availability) {
+            ConnectionResult.SUCCESS -> {
+                googleApiClient = buildApiClient()
+                state = PlayServicesManagerState.CAN_SIGN_IN
+            }
+            ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED -> {
+                state = PlayServicesManagerState.CAN_SIGN_IN
+            }
+            else -> {
+                state = PlayServicesManagerState.NOT_AVAILABLE
+            }
         }
-
     }
 
     private var autoStartSignInFlow = false
@@ -49,6 +54,14 @@ class PlayServicesManager(val context: Activity): GoogleApiClient.ConnectionCall
             return googleApiClient?.isConnected ?: false
         }
 
+    private fun buildApiClient(): GoogleApiClient {
+        return GoogleApiClient.Builder(context)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(Games.API).addScope(Games.SCOPE_GAMES)
+                .build()
+    }
+
     //region Lifecycle
     fun connectIfAvailable() {
         googleApiClient?.connect()
@@ -59,6 +72,9 @@ class PlayServicesManager(val context: Activity): GoogleApiClient.ConnectionCall
     }
 
     fun clickSignIn() {
+        if (googleApiClient == null) {
+            googleApiClient = buildApiClient()
+        }
         signInClicked = true
         connectIfAvailable()
     }
