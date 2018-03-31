@@ -31,7 +31,7 @@ class BingoViewViewModel(private val dataProvider: BingoDataProvider): BingoSqua
 
     val numberOfEntriesPerRow: Int
         get() {
-            return Math.ceil(Math.sqrt(currentBingoSquares.count().toDouble() ?: 0.0)).toInt()
+            return Math.ceil(Math.sqrt(currentBingoSquares.count().toDouble())).toInt()
         }
 
     override fun bingoSquareSelected(isSelected: Boolean) {

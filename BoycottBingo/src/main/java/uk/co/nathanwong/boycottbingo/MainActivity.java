@@ -71,15 +71,14 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        mPlayServicesManager.connectIfAvailable();
+    protected void onResume() {
+        super.onResume();
+        mPlayServicesManager.silentSignIn();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        mPlayServicesManager.disconnectIfAvailable();
     }
 
     @Override
@@ -125,7 +124,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        mPlayServicesManager.processActivityResult(this, requestCode, resultCode);
+        mPlayServicesManager.processActivityResult(this, requestCode, resultCode, data);
     }
 
     private Observer<BingoViewModelState> stateObserver = new Observer<BingoViewModelState>() {
