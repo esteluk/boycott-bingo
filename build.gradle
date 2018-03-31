@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.1.51'
+    ext.kotlin_version = '1.2.30'
 
     repositories {
         jcenter()
@@ -10,8 +10,8 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-rc1'
-        classpath 'io.fabric.tools:gradle:1.+'
+        classpath 'com.android.tools.build:gradle:3.1.0'
+        classpath 'io.fabric.tools:gradle:1.25.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -23,12 +23,12 @@ allprojects {
     }
 
     ext {
-        android_compile_version = 26
-        android_version = '26.0.2'
+        android_compile_version = 27
+        build_tools_version = '27.0.3'
         android_min_sdk_version = 16
 
-        appcompat_library_version = '26.1.0'
-        support_library_version = '26.1.0'
-        gms_library_version = '11.4.2'
+        appcompat_library_version = '27.1.0'
+        support_library_version = '27.1.0'
+        gms_library_version = '12.0.1'
     }
 }
