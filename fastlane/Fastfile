@@ -43,14 +43,16 @@ platform :android do
   # You can define as many lanes as you want
   
   lane :release do
-    screengrab
+    screenshots
     deploy
   end
 
   lane :screenshots do
     gradle(task: "assembleDebug")
     gradle(task: "assembleAndroidTest")
+    demo_mode(clock: "0800", wifi: false, mobile: true, mobile_datatype: "4g")
     screengrab
+    demo_mode(deactivate: true)
   end
 
   after_all do |lane|

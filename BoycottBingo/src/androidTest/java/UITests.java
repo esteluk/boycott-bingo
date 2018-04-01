@@ -45,7 +45,7 @@ public class UITests {
 //        assertThat();
     }
 
-    public static Matcher<View> nthChildOf(final Matcher<View> parentMatcher, final int childPosition) {
+    private static Matcher<View> nthChildOf(final Matcher<View> parentMatcher, final int childPosition) {
         return new TypeSafeMatcher<View>() {
             @Override
             public void describeTo(Description description) {

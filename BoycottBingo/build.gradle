@@ -61,7 +61,7 @@ dependencies {
     }
 
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    androidTestImplementation ('tools.fastlane:screengrab:0.5.3') {
+    androidTestImplementation ('tools.fastlane:screengrab:1.1.0') {
         exclude module: 'support-annotations'
     }
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

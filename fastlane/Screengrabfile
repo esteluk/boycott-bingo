@@ -3,10 +3,11 @@
 # app_package_name 'your.app.package'
 # use_tests_in_packages ['your.screenshot.tests.package']
 
-tests_apk_path 'BoycottBingo/build/outputs/apk/BoycottBingo-debug-androidTest.apk'
-app_apk_path 'BoycottBingo/build/outputs/apk/BoycottBingo-debug.apk'
+tests_apk_path 'BoycottBingo/build/outputs/apk/androidTest/debug/BoycottBingo-debug-androidTest.apk'
+app_apk_path 'BoycottBingo/build/outputs/apk/debug/BoycottBingo-debug.apk'
 
 locales ['en-GB']
+ending_locale "en-GB"
 
 # clear all previously generated screenshots in your local output directory before creating new ones
 clear_previous_screenshots true
