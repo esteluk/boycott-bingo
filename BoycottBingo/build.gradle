@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 apply plugin: 'io.fabric'
-apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion android_compile_version
-    buildToolsVersion android_version
+    buildToolsVersion build_tools_version
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion android_min_sdk_version
         targetSdkVersion android_compile_version
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -45,18 +45,24 @@ android {
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
+    google()
+    mavenCentral()
 }
 
 dependencies {
-    compile "com.android.support:design:${appcompat_library_version}"
-    compile "com.google.android.gms:play-services-games:${gms_library_version}"
-    compile 'com.jakewharton:butterknife:7.0.1'
-    compile('com.crashlytics.sdk.android:crashlytics:2.5.2@aar') {
+    implementation "com.android.support:design:${appcompat_library_version}"
+    implementation "com.google.android.gms:play-services-games:${gms_library_version}"
+    implementation "com.google.android.gms:play-services-auth:${gms_library_version}"
+    implementation "com.jakewharton:butterknife:8.8.1"
+    implementation "io.reactivex.rxjava2:rxandroid:2.0.1"
+    implementation "io.reactivex.rxjava2:rxjava:2.1.5"
+    implementation("com.crashlytics.sdk.android:crashlytics:2.9.1@aar") {
         transitive = true;
     }
 
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
-    androidTestCompile ('tools.fastlane:screengrab:0.5.3') {
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    androidTestImplementation ('tools.fastlane:screengrab:1.1.0') {
         exclude module: 'support-annotations'
     }
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }

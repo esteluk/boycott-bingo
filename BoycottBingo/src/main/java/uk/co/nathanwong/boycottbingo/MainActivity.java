@@ -1,56 +1,48 @@
 package uk.co.nathanwong.boycottbingo;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.games.Games;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
-import uk.co.nathanwong.boycottbingo.utils.GameUtils;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import uk.co.nathanwong.boycottbingo.interfaces.BingoDataProvider;
+import uk.co.nathanwong.boycottbingo.manager.PlayServicesManager;
+import uk.co.nathanwong.boycottbingo.manager.PlayServicesManagerDelegate;
+import uk.co.nathanwong.boycottbingo.manager.PlayServicesManagerState;
+import uk.co.nathanwong.boycottbingo.models.BingoStringArrayDataProvider;
+import uk.co.nathanwong.boycottbingo.models.BingoViewModelState;
+import uk.co.nathanwong.boycottbingo.viewmodels.BingoViewViewModel;
+import uk.co.nathanwong.boycottbingo.views.BingoView;
 
 public class MainActivity extends AppCompatActivity
-        implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
+        implements PlayServicesManagerDelegate, View.OnClickListener {
 
-    List<String> list;
-    LinearLayout rows;
+    BingoView bingoView;
+    BingoViewViewModel viewModel;
     Toolbar toolbar;
-    public int count = 0;
-    Context c;
 
     SharedPreferences settings = null;
     SharedPreferences.Editor editor = null;
     int score = 0;
 
-    private GoogleApiClient mGoogleApiClient;
-    private boolean mResolvingConnectionFailure = false;
-    private boolean mAutoStartSignInflow = false;
-    private boolean mSignInClicked = false;
-
-    private static int RC_SIGN_IN = 9001;
+    private PlayServicesManager mPlayServicesManager;
+    private AlertDialog mAlertDialog;
 
     private static final int BINGO_SIZE = 9;
 
@@ -59,44 +51,34 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(Games.API).addScope(Games.SCOPE_GAMES)
-                .build();
-
-        settings = getSharedPreferences("score", Context.MODE_PRIVATE);
-        editor = settings.edit();
-        score = settings.getInt("score", 0);
-
-        updateViewState();
+        mPlayServicesManager = new PlayServicesManager(this);
+        mPlayServicesManager.setDelegate(this);
 
         findViewById(R.id.main_signin).setOnClickListener(this);
-        findViewById(R.id.main_leaderboard).setOnClickListener(this);
-
-        c = this;
 
         String[] strings = getResources().getStringArray(R.array.boycottisms);
-        list = Arrays.asList(strings);
-        Collections.shuffle(list);
+        BingoDataProvider dataProvider = new BingoStringArrayDataProvider(Arrays.asList(strings), BINGO_SIZE);
 
-        rows = (LinearLayout) findViewById(R.id.main_rows);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        mAlertDialog = buildAlertDialog();
+
+        viewModel = new BingoViewViewModel(dataProvider);
+        viewModel.getCompletedObservable().subscribe(stateObserver);
+        bingoView = findViewById(R.id.main_rows);
+        bingoView.setViewModel(viewModel);
+
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        this.createBingo();
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        mGoogleApiClient.connect();
+    protected void onResume() {
+        super.onResume();
+        mPlayServicesManager.silentSignIn();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        mGoogleApiClient.disconnect();
     }
 
     @Override
@@ -114,8 +96,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.action_leaderboard).setVisible(isSignedIn());
-        menu.findItem(R.id.action_logout).setVisible(isSignedIn());
+        menu.findItem(R.id.action_leaderboard).setVisible(mPlayServicesManager.isSignedIn());
+        menu.findItem(R.id.action_logout).setVisible(mPlayServicesManager.isSignedIn());
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -133,8 +115,7 @@ public class MainActivity extends AppCompatActivity
                 openAbout();
                 return true;
             case R.id.action_logout:
-                Games.signOut(mGoogleApiClient);
-                updateViewState();
+                mPlayServicesManager.signOut();
                 return true;
             default:
                 return false;
@@ -143,17 +124,32 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == RC_SIGN_IN) {
-            mSignInClicked = false;
-            mResolvingConnectionFailure = false;
-            if (resultCode == RESULT_OK) {
-                mGoogleApiClient.connect();
-            } else {
-                // Bring up error dialog
-                GameUtils.showActivityResultError(this, requestCode, resultCode, R.string.unable_to_sign_in);
+        mPlayServicesManager.processActivityResult(this, requestCode, resultCode, data);
+    }
+
+    private Observer<BingoViewModelState> stateObserver = new Observer<BingoViewModelState>() {
+        @Override
+        public void onSubscribe(Disposable d) {
+
+        }
+
+        @Override
+        public void onNext(BingoViewModelState bingoViewModelState) {
+            if (bingoViewModelState == BingoViewModelState.COMPLETE) {
+                bingoComplete();
             }
         }
-    }
+
+        @Override
+        public void onError(Throwable e) {
+
+        }
+
+        @Override
+        public void onComplete() {
+
+        }
+    };
 
     private void openAbout() {
         Intent intent = new Intent(this, AboutActivity.class);
@@ -161,184 +157,73 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void openLeaderboard() {
-        if (mGoogleApiClient.isConnected()) {
-            startActivityForResult(Games.Leaderboards.getLeaderboardIntent(mGoogleApiClient, getString(R.string.leaderboard_id)), 12345);
-        }
+        mPlayServicesManager.showLeaderboard();
     }
 
-    public boolean onRefreshButtonPress(MenuItem item) {
-        rows.removeAllViews();
-        this.createBingo();
-
-        return true;
+    public void onRefreshButtonPress(MenuItem item) {
+        viewModel.newBingoBoard();
     }
 
-    private void createBingo() {
-        count = 0;
-        Collections.shuffle(list);
-
-        LinearLayout ll = new LinearLayout(this);
-        ll.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 1.0f));
-        ll.setOrientation(LinearLayout.HORIZONTAL);
-
-        int j = 0;
-        for (int i = 0; i < BINGO_SIZE; i++) {
-            if (j <  Math.ceil(Math.sqrt(BINGO_SIZE))) {
-                // yes
-            } else {
-                j = 0;
-                rows.addView(ll);
-                ll = new LinearLayout(this);
-                ll.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 1.0f));
-                ll.setOrientation(LinearLayout.HORIZONTAL);
-            }
-
-            FrameLayout frame = new FrameLayout(this);
-            frame.setBackground(ContextCompat.getDrawable(this, R.drawable.selecttransition));
-            frame.setPadding(10, 10, 10, 10);
-            frame.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f));
-            frame.setSelected(false);
-            frame.setClickable(true);
-            frame.setForeground(getSelectedItemDrawable());
-
-            TextView text = new TextView(this);
-            text.setText(list.get(i));
-            text.setGravity(Gravity.CENTER);
-            text.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
-            frame.addView(text);
-
-            frame.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    TransitionDrawable transition = (TransitionDrawable) view.getBackground();
-
-                    if (!view.isSelected()) {
-                        // Unselected
-                        transition.startTransition(200);
-                        view.setSelected(true);
-                        count++;
-                    } else {
-                        transition.reverseTransition(200);
-                        view.setSelected(false);
-                        count--;
-                    }
-
-                    if (count == 9) {
-                        // Success!
-                        AlertDialog.Builder builder = new AlertDialog.Builder(c);
-                        builder.setTitle(getString(R.string.main_dialog_title));
-                        builder.setMessage(getString(R.string.main_dialog_text))
-                                .setCancelable(false)
-                                .setPositiveButton(getString(R.string.main_dialog_positive), new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        MainActivity.this.onRefreshButtonPress(null);
-                                    }
-                                })
-                                .setNegativeButton(getString(R.string.main_dialog_negative), new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        dialogInterface.cancel();
-                                    }
-                                });
-
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
-
-                        if (isSignedIn()) {
-                            // Submit leaderboard score
-                            score++;
-                            Games.Leaderboards.submitScore(mGoogleApiClient, getString(R.string.leaderboard_id), score);
-                            editor.putInt("score", score);
-
-                            editor.commit();
-                        }
-                    }
-
-                }
-            });
-
-            frame.setTag(i);
-
-            ll.addView(frame);
-
-            j++;
-        }
-
-        rows.addView(ll);
+    private void bingoComplete() {
+        mAlertDialog.show();
+        mPlayServicesManager.submitScore(getString(R.string.leaderboard_id), incrementScore());
     }
+
 
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.main_signin) {
-            mSignInClicked = true;
-            mGoogleApiClient.connect();
-        } else if (view.getId() == R.id.main_leaderboard) {
-            openLeaderboard();
+            mPlayServicesManager.clickSignIn();
         }
     }
 
+    private int incrementScore() {
+        settings = getSharedPreferences("score", Context.MODE_PRIVATE);
+        editor = settings.edit();
+        score = settings.getInt("score", 0);
+        score++;
+        editor.putInt("score", score);
+        editor.apply();
+        return score;
+    }
+
+    private AlertDialog buildAlertDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.main_dialog_title));
+        builder.setMessage(getString(R.string.main_dialog_text))
+                .setCancelable(false)
+                .setPositiveButton(getString(R.string.main_dialog_positive), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        MainActivity.this.onRefreshButtonPress(null);
+                    }
+                })
+                .setNegativeButton(getString(R.string.main_dialog_negative), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+
+        return builder.create();
+    }
+
+    //region PlayServicesManagerDelegate methods
     @Override
-    public void onConnected(Bundle bundle) {
-        // The player is signed in
-        findViewById(R.id.main_signin).setVisibility(View.GONE);
-//        findViewById(R.id.main_leaderboard).setVisibility(View.VISIBLE);
+    public void playServicesStateDidUpdate(@NotNull PlayServicesManagerState state) {
+        switch (state) {
+            case NOT_AVAILABLE:
+                findViewById(R.id.main_signin).setVisibility(View.GONE);
+                break;
+            case CAN_SIGN_IN:
+                findViewById(R.id.main_signin).setVisibility(View.VISIBLE);
+                break;
+            case SIGNED_IN:
+                findViewById(R.id.main_signin).setVisibility(View.GONE);
+                break;
+        }
         supportInvalidateOptionsMenu();
     }
 
-    @Override
-    public void onConnectionSuspended(int i) {
-        mGoogleApiClient.connect();
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-        if (mResolvingConnectionFailure) {
-            // already resolving
-            return;
-        }
-
-        // if we clicked sign-in or if auto was enabled, then launch the sign-in flow
-        if (mSignInClicked || mAutoStartSignInflow) {
-            mAutoStartSignInflow = false;
-            mSignInClicked = false;
-            mResolvingConnectionFailure = true;
-
-            // Attempt to resolve the failure in Game utils
-            if (!GameUtils.resolveConnectionFailure(this, mGoogleApiClient, connectionResult, RC_SIGN_IN)) {
-                mResolvingConnectionFailure = false;
-            }
-        }
-
-        findViewById(R.id.main_signin).setVisibility(View.VISIBLE);
-        findViewById(R.id.main_leaderboard).setVisibility(View.GONE);
-    }
-
-    void updateViewState() {
-        if (!GameUtils.isGooglePlayServicesAvailable(this)) {
-            findViewById(R.id.main_signin).setVisibility(View.GONE);
-            findViewById(R.id.main_leaderboard).setVisibility(View.GONE);
-        } if (isSignedIn()) {
-            findViewById(R.id.main_signin).setVisibility(View.GONE);
-            findViewById(R.id.main_leaderboard).setVisibility(View.VISIBLE);
-        } else {
-            findViewById(R.id.main_signin).setVisibility(View.VISIBLE);
-            findViewById(R.id.main_leaderboard).setVisibility(View.GONE);
-        }
-    }
-
-    boolean isSignedIn() {
-        return mGoogleApiClient != null && mGoogleApiClient.isConnected();
-    }
-
-    public Drawable getSelectedItemDrawable() {
-        int[] attrs = new int[]{R.attr.selectableItemBackgroundBorderless};
-        TypedArray ta = obtainStyledAttributes(attrs);
-        Drawable selectedItemDrawable = ta.getDrawable(0);
-
-        ta.recycle();
-        return selectedItemDrawable;
-    }
-
+    //endregion
 }
