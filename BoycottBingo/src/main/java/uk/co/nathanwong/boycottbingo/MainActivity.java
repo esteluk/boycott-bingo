@@ -157,10 +157,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void openLeaderboard() {
-        Intent leaderboardIntent = mPlayServicesManager.buildLeaderboardIntent();
-        if (leaderboardIntent != null) {
-            startActivityForResult(leaderboardIntent, 12345);
-        }
+        mPlayServicesManager.showLeaderboard();
     }
 
     public void onRefreshButtonPress(MenuItem item) {

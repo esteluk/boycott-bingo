@@ -11,8 +11,6 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.games.Games
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
 import uk.co.nathanwong.boycottbingo.R
 import uk.co.nathanwong.boycottbingo.utils.GameUtils
 
@@ -63,16 +61,14 @@ class PlayServicesManager(val context: Activity) {
 
     //region Lifecycle
     fun silentSignIn() {
-        signInClient?.silentSignIn()?.addOnCompleteListener(object: OnCompleteListener<GoogleSignInAccount> {
-            override fun onComplete(task: Task<GoogleSignInAccount>) {
-                if (task.isSuccessful) {
-                    signInAccount = task.result
-                    state = PlayServicesManagerState.SIGNED_IN
-                } else {
-                    state = PlayServicesManagerState.CAN_SIGN_IN
-                }
+        signInClient?.silentSignIn()?.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                signInAccount = task.result
+                state = PlayServicesManagerState.SIGNED_IN
+            } else {
+                state = PlayServicesManagerState.CAN_SIGN_IN
             }
-        })
+        }
 
     }
 
@@ -105,11 +101,12 @@ class PlayServicesManager(val context: Activity) {
         return false
     }
 
-    fun buildLeaderboardIntent(): Intent? {
-        val signInAccount = signInAccount?.let { it } ?: return null
-        return Games.getLeaderboardsClient(context, signInAccount)
-                .getLeaderboardIntent(context.getString(R.string.leaderboard_id))
-                .result
+    fun showLeaderboard() {
+        val signInAccount = signInAccount?.let { it } ?: return
+        Games.getLeaderboardsClient(context, signInAccount)
+                .getLeaderboardIntent(context.getString(R.string.leaderboard_id)).addOnSuccessListener { intent ->
+                    context.startActivityForResult(intent, 12345)
+                }
     }
 
     private fun showActivityResultError(activity: Activity, requestCode: Int, resultCode: Int, @StringRes errorDescription: Int) {
