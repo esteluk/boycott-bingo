@@ -1,4 +1,4 @@
-import android.support.test.rule.ActivityTestRule;
+import androidx.test.rule.ActivityTestRule;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -16,9 +16,9 @@ import tools.fastlane.screengrab.locale.LocaleTestRule;
 import uk.co.nathanwong.boycottbingo.MainActivity;
 import uk.co.nathanwong.boycottbingo.R;
 
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 @RunWith(JUnit4.class)
 public class UITests {

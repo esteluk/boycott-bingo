@@ -2,7 +2,7 @@ package uk.co.nathanwong.boycottbingo.manager
 
 import android.app.Activity
 import android.content.Intent
-import android.support.annotation.StringRes
+import androidx.annotation.StringRes
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient

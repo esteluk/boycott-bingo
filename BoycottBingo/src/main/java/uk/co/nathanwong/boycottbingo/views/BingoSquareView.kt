@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.TransitionDrawable
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout

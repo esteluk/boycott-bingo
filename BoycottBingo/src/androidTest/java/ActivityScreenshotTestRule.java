@@ -1,11 +1,5 @@
 import android.app.Activity;
-import android.support.test.rule.ActivityTestRule;
-import android.view.View;
-import android.view.ViewGroup;
-
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
+import androidx.test.rule.ActivityTestRule;
 
 import tools.fastlane.screengrab.Screengrab;
 import tools.fastlane.screengrab.UiAutomatorScreenshotStrategy;
