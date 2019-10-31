@@ -14,7 +14,7 @@ import uk.co.nathanwong.boycottbingo.R
 import uk.co.nathanwong.boycottbingo.interfaces.BingoSquare
 
 @SuppressLint("ViewConstructor")
-class BingoSquareView(context: Context, attrs: AttributeSet?, defStyleAttr: Int, val model: BingoSquare) : FrameLayout(context, attrs, defStyleAttr), View.OnClickListener {
+class BingoSquareView(context: Context, attrs: AttributeSet?, defStyleAttr: Int, private val model: BingoSquare) : FrameLayout(context, attrs, defStyleAttr), View.OnClickListener {
     constructor(context: Context, model: BingoSquare) : this(context, null, model)
     constructor(context: Context, attrs: AttributeSet?, model: BingoSquare) : this(context, attrs, 0, model)
 
@@ -22,10 +22,10 @@ class BingoSquareView(context: Context, attrs: AttributeSet?, defStyleAttr: Int,
         layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1F)
         background = ContextCompat.getDrawable(context, R.drawable.selecttransition)
         foreground = getSelectableItemForeground()
-        View.inflate(context, R.layout.view_bingo, this);
+        View.inflate(context, R.layout.view_bingo, this)
 
-        val textView: TextView = findViewById(R.id.text);
-        textView.setText(model.text())
+        val textView: TextView = findViewById(R.id.text)
+        textView.text = model.text()
         isSelected = model.isSelected
         isClickable = true
         isFocusable = true
@@ -34,17 +34,17 @@ class BingoSquareView(context: Context, attrs: AttributeSet?, defStyleAttr: Int,
 
     override fun onClick(p0: View?) {
         val transition: TransitionDrawable = background as TransitionDrawable
-        if (!isSelected) {
+        isSelected = if (!isSelected) {
             transition.startTransition(200)
-            isSelected = true
+            true
         } else {
             transition.reverseTransition(200)
-            isSelected = false
+            false
         }
         model.isSelected = isSelected
     }
 
-    private fun getSelectableItemForeground(): Drawable {
+    private fun getSelectableItemForeground(): Drawable? {
         val attrs: IntArray = intArrayOf(R.attr.selectableItemBackgroundBorderless)
         val typedArray = context.obtainStyledAttributes(attrs)
         val drawable = typedArray.getDrawable(0)

@@ -33,13 +33,13 @@ import uk.co.nathanwong.boycottbingo.views.BingoView;
 public class MainActivity extends AppCompatActivity
         implements PlayServicesManagerDelegate, View.OnClickListener {
 
-    BingoView bingoView;
-    BingoViewViewModel viewModel;
-    Toolbar toolbar;
+    private BingoView bingoView;
+    private BingoViewViewModel viewModel;
+    private Toolbar toolbar;
 
-    SharedPreferences settings = null;
-    SharedPreferences.Editor editor = null;
-    int score = 0;
+    private SharedPreferences settings = null;
+    private SharedPreferences.Editor editor = null;
+    private int score = 0;
 
     private PlayServicesManager mPlayServicesManager;
     private AlertDialog mAlertDialog;
@@ -79,6 +79,12 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onStop() {
         super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        bingoView.destroy();
+        super.onDestroy();
     }
 
     @Override
@@ -127,7 +133,7 @@ public class MainActivity extends AppCompatActivity
         mPlayServicesManager.processActivityResult(this, requestCode, resultCode, data);
     }
 
-    private Observer<BingoViewModelState> stateObserver = new Observer<BingoViewModelState>() {
+    private final Observer<BingoViewModelState> stateObserver = new Observer<BingoViewModelState>() {
         @Override
         public void onSubscribe(Disposable d) {
 
@@ -160,7 +166,7 @@ public class MainActivity extends AppCompatActivity
         mPlayServicesManager.showLeaderboard();
     }
 
-    public void onRefreshButtonPress(MenuItem item) {
+    private void onRefreshButtonPress(MenuItem item) {
         viewModel.newBingoBoard();
     }
 
@@ -213,13 +219,11 @@ public class MainActivity extends AppCompatActivity
     public void playServicesStateDidUpdate(@NotNull PlayServicesManagerState state) {
         switch (state) {
             case NOT_AVAILABLE:
+            case SIGNED_IN:
                 findViewById(R.id.main_signin).setVisibility(View.GONE);
                 break;
             case CAN_SIGN_IN:
                 findViewById(R.id.main_signin).setVisibility(View.VISIBLE);
-                break;
-            case SIGNED_IN:
-                findViewById(R.id.main_signin).setVisibility(View.GONE);
                 break;
         }
         supportInvalidateOptionsMenu();

@@ -3,6 +3,7 @@ package uk.co.nathanwong.boycottbingo.views
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.LinearLayout
+import io.reactivex.disposables.CompositeDisposable
 import uk.co.nathanwong.boycottbingo.interfaces.BingoSquare
 import uk.co.nathanwong.boycottbingo.viewmodels.BingoViewViewModel
 
@@ -11,16 +12,23 @@ class BingoView @JvmOverloads constructor(
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
     init {
-        orientation = LinearLayout.VERTICAL
+        orientation = VERTICAL
     }
+
+    private var disposables = CompositeDisposable()
 
     var viewModel: BingoViewViewModel? = null
         set(value) {
             field = value
-            value?.observable?.subscribe { bingoSquares ->
+            val disposable = value?.observable?.subscribe { bingoSquares ->
                 buildBingoCard(bingoSquares)
             }
+            disposable?.let { disposables.add(it) }
         }
+
+    fun destroy() {
+        disposables.dispose()
+    }
 
     private fun buildBingoCard(bingoSquares: List<BingoSquare>) {
         removeAllViews()
@@ -34,8 +42,8 @@ class BingoView @JvmOverloads constructor(
         for (view in views) {
             if (currentRow == null) {
                 currentRow = LinearLayout(context)
-                currentRow.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 1F)
-                currentRow.orientation = LinearLayout.HORIZONTAL
+                currentRow.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, 0, 1F)
+                currentRow.orientation = HORIZONTAL
             }
 
             currentRow.addView(view)

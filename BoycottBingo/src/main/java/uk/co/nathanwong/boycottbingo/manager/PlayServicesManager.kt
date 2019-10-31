@@ -14,7 +14,7 @@ import com.google.android.gms.games.Games
 import uk.co.nathanwong.boycottbingo.R
 import uk.co.nathanwong.boycottbingo.utils.GameUtils
 
-class PlayServicesManager(val context: Activity) {
+class PlayServicesManager(private val context: Activity) {
 
     private val rcSignIn = 9001
 
@@ -34,8 +34,7 @@ class PlayServicesManager(val context: Activity) {
         }
 
     init {
-        val availability = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context)
-        when (availability) {
+        when (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context)) {
             ConnectionResult.SUCCESS -> {
                 signInClient = buildSignInClient()
                 state = PlayServicesManagerState.CAN_SIGN_IN

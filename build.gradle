@@ -16,7 +16,6 @@ buildscript {
     }
 }
 
-// allprojects apply to every project
 allprojects {
     repositories {
         jcenter()

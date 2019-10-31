@@ -8,13 +8,15 @@ import uk.co.nathanwong.boycottbingo.interfaces.BingoSquare
 import uk.co.nathanwong.boycottbingo.interfaces.BingoSquareListener
 import uk.co.nathanwong.boycottbingo.models.BingoViewModelState
 import java.util.*
+import kotlin.math.ceil
+import kotlin.math.sqrt
 
 class BingoViewViewModel(private val dataProvider: BingoDataProvider): BingoSquareListener {
 
-    var observable = BehaviorSubject.create<List<BingoSquare>>()
-    var completedObservable = PublishSubject.create<BingoViewModelState>()
+    var observable = BehaviorSubject.create<List<BingoSquare>>()!!
+    var completedObservable = PublishSubject.create<BingoViewModelState>()!!
 
-    private var currentBingoSquares: List<BingoSquare> = ArrayList<BingoSquare>()
+    private var currentBingoSquares: List<BingoSquare> = ArrayList()
         set(value) {
             field = value
             observable.onNext(value)
@@ -31,18 +33,20 @@ class BingoViewViewModel(private val dataProvider: BingoDataProvider): BingoSqua
 
     val numberOfEntriesPerRow: Int
         get() {
-            return Math.ceil(Math.sqrt(currentBingoSquares.count().toDouble())).toInt()
+            return ceil(sqrt(currentBingoSquares.count().toDouble())).toInt()
         }
 
     override fun bingoSquareSelected(isSelected: Boolean) {
         val completeCount = currentBingoSquares.count { it.isSelected }
-        if (completeCount == currentBingoSquares.count()) {
-            completedObservable.onNext(BingoViewModelState.COMPLETE)
-        } else if (completeCount == 0) {
-            completedObservable.onNext(BingoViewModelState.NOT_STARTED)
-        } else {
-            completedObservable.onNext(BingoViewModelState.IN_PROGRESS)
+
+        val state: BingoViewModelState = when (completeCount) {
+            currentBingoSquares.count() -> BingoViewModelState.COMPLETE
+            0 -> BingoViewModelState.NOT_STARTED
+            else -> BingoViewModelState.IN_PROGRESS
         }
-        Log.d("BingoViewViewModel", "Total of ${completeCount} selected")
+
+        completedObservable.onNext(state)
+
+        Log.d("BingoViewViewModel", "Total of $completeCount selected")
     }
 }
