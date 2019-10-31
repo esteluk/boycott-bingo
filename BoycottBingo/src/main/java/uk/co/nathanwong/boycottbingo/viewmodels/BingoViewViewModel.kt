@@ -13,8 +13,8 @@ import kotlin.math.sqrt
 
 class BingoViewViewModel(private val dataProvider: BingoDataProvider): BingoSquareListener {
 
-    var observable = BehaviorSubject.create<List<BingoSquare>>()!!
-    var completedObservable = PublishSubject.create<BingoViewModelState>()!!
+    var observable = BehaviorSubject.create<List<BingoSquare>>()
+    var completedObservable = PublishSubject.create<BingoViewModelState>()
 
     private var currentBingoSquares: List<BingoSquare> = ArrayList()
         set(value) {
