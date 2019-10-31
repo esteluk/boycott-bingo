@@ -1,0 +1,1 @@
+This change makes minor changes to stop using an advertising ID that can potentially leak private information.
