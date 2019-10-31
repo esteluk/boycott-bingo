@@ -36,8 +36,11 @@ platform :android do
 
   desc "Deploy a new version to the Google Play"
   lane :deploy do
-    gradle(task: "assembleRelease")
-    supply(apk: "#{lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}")
+    gradle(task: "bundleRelease")
+    supply(
+      aab: "#{lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH]}",
+      skip_upload_apk: true
+    )
   end
 
   # You can define as many lanes as you want
@@ -50,7 +53,7 @@ platform :android do
   lane :screenshots do
     gradle(task: "assembleDebug")
     gradle(task: "assembleAndroidTest")
-    demo_mode(clock: "0800", wifi: false, mobile: true, mobile_datatype: "4g")
+    demo_mode(clock: "1000", wifi: false, mobile: true, mobile_datatype: "4g")
     screengrab
     demo_mode(deactivate: true)
   end
